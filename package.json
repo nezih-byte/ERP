@@ -41,6 +41,8 @@
     "@angular/platform-browser": "^12.1.0",
     "@angular/platform-browser-dynamic": "^12.1.0",
     "@angular/router": "^12.1.0",
+    "@apollo/client": "3.5.10",
+    "@apollo/server": "^4.7.0",
     "@asymmetrik/ngx-leaflet": "3.0.1",
     "@nebular/auth": "8.0.0",
     "@nebular/eva-icons": "8.0.0",
@@ -48,6 +50,7 @@
     "@nebular/theme": "8.0.0",
     "@swimlane/ngx-charts": "^14.0.0",
     "angular2-chartjs": "0.4.1",
+    "apollo-angular": "^3.0.0",
     "bootstrap": "4.3.1",
     "chart.js": "2.7.1",
     "ckeditor": "4.7.3",
@@ -55,6 +58,8 @@
     "core-js": "2.5.1",
     "echarts": "^4.0.2",
     "eva-icons": "^1.1.3",
+    "graphql": "^16.6.0",
+    "graphql-angular": "^1.0.0",
     "intl": "1.2.5",
     "ionicons": "2.0.1",
     "leaflet": "1.2.0",
@@ -62,7 +67,7 @@
     "ng2-ckeditor": "^1.2.9",
     "ng2-smart-table": "^1.6.0",
     "ngx-echarts": "^4.2.2",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.14.1",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",
     "roboto-fontface": "0.8.0",
@@ -106,6 +111,6 @@
     "ts-node": "3.2.2",
     "tslint": "~6.1.0",
     "tslint-language-service": "^0.9.9",
-    "typescript": "^4.2.3"
+    "typescript": "^4.3.5"
   }
 }

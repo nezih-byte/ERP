@@ -5,11 +5,17 @@ import { PagesComponent } from "./pages.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ECommerceComponent } from "./e-commerce/e-commerce.component";
 import { NotFoundComponent } from "./miscellaneous/not-found/not-found.component";
+import { GuardAuth } from "./login/guard.service";
+import { ROLE } from "../roles";
 
 const routes: Routes = [
   {
     path: "",
     component: PagesComponent,
+    canActivate: [GuardAuth],
+    data: {
+      role: [ROLE.ADMIN_MANAGER, ROLE.ADMIN_TECH, ROLE.MANAGER, ROLE.TECH],
+    },
     children: [
       {
         path: "dashboard",
