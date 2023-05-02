@@ -31,6 +31,20 @@ const routes: Routes = [
           import("./layout/layout.module").then((m) => m.LayoutModule),
       },
       {
+        path: "dashboardGlobal",
+        loadChildren: () =>
+          import("./dashboards/dashboards.module").then(
+            (m) => m.DashboardsModule
+          ),
+      },
+      {
+        path: "tableClient",
+        loadChildren: () =>
+          import("./table-cliet/table-cliet.module").then(
+            (m) => m.TableClietModule
+          ),
+      },
+      {
         path: "forms",
         loadChildren: () =>
           import("./forms/forms.module").then((m) => m.FormsModule),

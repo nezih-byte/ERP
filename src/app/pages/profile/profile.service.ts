@@ -20,13 +20,11 @@ export class ProfileService {
   }
 
   signIn(username: string, password: string) {
-    console.log("in service");
-    console.log(typeof username);
-    console.log(typeof password);
     return gql`
       mutation {
         login(loginAuthInput: { username: "${username}", password: "${password}" }) {
           access_token
+          user{ role  username email }
         }
       }
     `;

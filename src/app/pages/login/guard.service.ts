@@ -9,7 +9,6 @@ import {
 import { NbToastrService } from "@nebular/theme";
 import { Apollo } from "apollo-angular";
 import { ProfileService } from "../profile/profile.service";
-// import { UserService } from "../user/user.service";
 
 @Injectable({
   providedIn: "root",
@@ -33,7 +32,7 @@ export class GuardAuth implements CanActivate {
         query: this.userService.getUserByToken(),
       })
       .toPromise();
-    //console.log("This is user from graphql in guard", user);
+    // console.log("This is user from graphql in guard", user);
     return user;
   }
 
@@ -43,7 +42,7 @@ export class GuardAuth implements CanActivate {
     if (this.isAuth()) {
       if (
         route.data.role &&
-        route.data.role.includes(user.data.getUserByToken.role)
+        route.data.role.includes(user.data.getTokenData.role)
       ) {
         //console.log(route.data.role.includes(user.data.getUserByToken.role));
         // console.log(user.data.getUserByToken.role);

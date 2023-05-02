@@ -4,43 +4,43 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: "E-commerce",
     icon: "shopping-cart-outline",
-    link: "/pages/dashboard",
+    link: "/pages/dashboardGlobal/dashboardGlobal",
     home: true,
   },
+  // {
+  //   title: "IoT Dashboard",
+  //   icon: "home-outline",
+  //   link: "/pages/iot-dashboard",
+  // },
   {
-    title: "IoT Dashboard",
-    icon: "home-outline",
-    link: "/pages/iot-dashboard",
-  },
-  {
-    title: "More functionalities",
+    title: "Features",
     group: true,
   },
   {
-    title: "Layout",
+    title: "Client",
     icon: "layout-outline",
     children: [
       {
-        title: "Stepper",
-        link: "/pages/layout/stepper",
+        title: "Add",
+        link: "/pages/tableClient/add-client",
       },
       {
         title: "List",
-        link: "/pages/layout/list",
+        link: "/pages/tableClient/table-user",
       },
-      {
-        title: "Infinite List",
-        link: "/pages/layout/infinite-list",
-      },
-      {
-        title: "Accordion",
-        link: "/pages/layout/accordion",
-      },
-      {
-        title: "Tabs",
-        pathMatch: "prefix",
-        link: "/pages/layout/tabs",
-      },
+      // {
+      //   title: "Infinite List",
+      //   link: "/pages/layout/infinite-list",
+      // },
+      // {
+      //   title: "Accordion",
+      //   link: "/pages/layout/accordion",
+      // },
+      // {
+      //   title: "Tabs",
+      //   pathMatch: "prefix",
+      //   link: "/pages/layout/tabs",
+      // },
     ],
   },
   {

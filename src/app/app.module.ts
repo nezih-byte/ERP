@@ -12,6 +12,7 @@ import { ThemeModule } from "./@theme/theme.module";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import {
+  NbButtonModule,
   NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
@@ -23,14 +24,21 @@ import {
 } from "@nebular/theme";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { GraphQlModule } from "./graphql.modules";
+import { CommonModule } from "@angular/common";
+import { LoginComponent } from "./pages/login/login.component";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     GraphQlModule,
     FormsModule,
     NbInputModule,
+    CommonModule,
+    BrowserModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    NbInputModule,
+    NbButtonModule,
     HttpClientModule,
     AppRoutingModule,
     NbSidebarModule.forRoot(),

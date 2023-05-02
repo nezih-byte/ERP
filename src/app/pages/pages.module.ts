@@ -20,10 +20,10 @@ import { BrowserModule } from "@angular/platform-browser";
     ECommerceModule,
     MiscellaneousModule,
     ReactiveFormsModule,
-    BrowserModule,
+    // BrowserModule,
     NbInputModule,
     NbButtonModule,
   ],
-  declarations: [PagesComponent, LoginComponent],
+  declarations: [PagesComponent],
 })
 export class PagesModule {}

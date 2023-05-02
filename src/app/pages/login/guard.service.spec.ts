@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { GuardService } from './guard.service';
+import { GuardAuth } from "./guard.service";
 
-describe('GuardService', () => {
-  let service: GuardService;
+describe("GuardService", () => {
+  let service: GuardAuth;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GuardService);
+    service = TestBed.inject(GuardAuth);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

@@ -2,7 +2,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { ApolloModule, APOLLO_OPTIONS } from "apollo-angular";
 import { HttpLink } from "apollo-angular/http";
 import { InMemoryCache, ApolloLink } from "@apollo/client/core";
-import { BrowserModule } from "@angular/platform-browser";
+// import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { setContext } from "@apollo/client/link/context";
 
@@ -10,7 +10,7 @@ const uri = "http://localhost:3000/graphql";
 export function createApollo(httpLink: HttpLink) {
   const basic = setContext((operation, context) => ({
     headers: {
-      Accept: "charset=utf-8",
+      Accept: ["charset=utf-8", "application/json"],
     },
   }));
 
@@ -54,7 +54,7 @@ export function createApollo(httpLink: HttpLink) {
 }
 
 @NgModule({
-  imports: [BrowserModule, ApolloModule, HttpClientModule],
+  imports: [ApolloModule, HttpClientModule],
   providers: [
     {
       provide: APOLLO_OPTIONS,
