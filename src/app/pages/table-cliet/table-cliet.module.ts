@@ -11,6 +11,7 @@ import {
   NbStepperModule,
 } from "@nebular/theme";
 import { ReactiveFormsModule } from "@angular/forms";
+import { Ng2SmartTableModule } from "ng2-smart-table";
 
 @NgModule({
   declarations: [TableClientComponent, AddClientComponent],
@@ -23,6 +24,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     ReactiveFormsModule,
     NbRadioModule,
     NbButtonModule,
+    Ng2SmartTableModule,
   ],
 })
 export class TableClietModule {}

@@ -44,10 +44,6 @@ export class GuardAuth implements CanActivate {
         route.data.role &&
         route.data.role.includes(user.data.getTokenData.role)
       ) {
-        //console.log(route.data.role.includes(user.data.getUserByToken.role));
-        // console.log(user.data.getUserByToken.role);
-        // console.log("route.data", route.data);
-        //console.log("route.data.role", route.data.role);
         return true;
       }
       this.router.navigate(["/auth"]);

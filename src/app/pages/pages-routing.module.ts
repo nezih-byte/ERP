@@ -45,6 +45,11 @@ const routes: Routes = [
           ),
       },
       {
+        path: "ticket",
+        loadChildren: () =>
+          import("./ticket/ticket.module").then((m) => m.TicketModule),
+      },
+      {
         path: "forms",
         loadChildren: () =>
           import("./forms/forms.module").then((m) => m.FormsModule),
