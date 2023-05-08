@@ -9,8 +9,8 @@ export class AddTicketComponent implements OnInit {
   firstForm;
   secondForm;
   options = [
-    { value: "This is value 1", label: "Option 1" },
-    { value: "This is value 2", label: "Option 2" },
+    { value: "This is value 1", label: "Oui" },
+    { value: "This is value 2", label: "Non" },
   ];
   constructor() {}
 

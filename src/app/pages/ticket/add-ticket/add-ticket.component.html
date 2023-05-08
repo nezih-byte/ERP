@@ -1,176 +1,92 @@
 <nb-card>
   <nb-card-header>Add client</nb-card-header>
   <nb-card-body>
-    <nb-stepper #stepper>
-      <nb-step>
-        <form [formGroup]="firstForm">
-          <div class="row">
-            <div class="col-lg-6">
-              <label class="label" for="">Fiche de diagnoostic</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-6">
-              <label class="label" for="">Fiche de diagnoostic</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <label class="label" for="">Déstination</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-6">
-              <label class="label" for="">N° série</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-4">
-              <label class="label" for="">N° DI</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-4">
-              <label class="label" for="">N°</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-4">
-              <label class="label" for="">Téchnicien</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-3">
-              <label class="label" for="">Devis</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-3">
-              <label class="label" for="">BL</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-3">
-              <label class="label" for="">Facture</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-3">
-              <label class="label" for="">BC</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <label class="label" for="">Date de création</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-6">
-              <label class="label" for="">Date de diagnostique</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <label class="label" for="">Date de devis</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-6">
-              <label class="label" for="">Date de confirmation</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-4">
-              <label class="label" for="">Date de réparation</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-4">
-              <label class="label" for="">Date de livraison</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-4">
-              <label class="label" for="">Date de facturation</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <button nbButton nbStepperNext>next</button>
-            </div>
-          </div>
-        </form>
-      </nb-step>
-      <nb-step>
-        <form [formGroup]="secondForm">
-          <div class="row">
-            <div class="col-lg-12">
-              <label class="label" for="">Tech</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <label for="" class="label">Réparable</label>
-              <nb-radio-group>
-                <nb-radio *ngFor="let option of options" [value]="option.value">
-                  {{ option.label }}
-                </nb-radio>
-              </nb-radio-group>
-            </div>
-            <div class="col-lg-6">
-              <label for="" class="label">PDR</label>
-              <nb-radio-group>
-                <nb-radio *ngFor="let option of options" [value]="option.value">
-                  {{ option.label }}
-                </nb-radio>
-              </nb-radio-group>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <label for="" class="label">Remarque</label>
-              <textarea nbInput fullWidth placeholder="Textarea"></textarea>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-4">
-              <label class="label" for="">Date fin réparation</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-4">
-              <label class="label" for="">Qualité</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-            <div class="col-lg-4">
-              <label class="label" for="">Date control</label>
-              <input nbInput type="text" fullWidth />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <label for="" class="label">Validation</label>
-              <nb-radio-group>
-                <nb-radio *ngFor="let option of options" [value]="option.value">
-                  {{ option.label }}
-                </nb-radio>
-              </nb-radio-group>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <label for="" class="label">Remarque</label>
-              <textarea nbInput fullWidth placeholder="Textarea"></textarea>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <label for="" class="label">Validation</label>
-              <nb-radio-group>
-                <nb-radio *ngFor="let option of options" [value]="option.value">
-                  {{ option.label }}
-                </nb-radio>
-              </nb-radio-group>
-            </div>
-          </div>
-        </form>
-      </nb-step>
-    </nb-stepper>
+    <form [formGroup]="firstForm">
+      <div class="row">
+        <div class="col-lg-12">
+          <label class="label" for="">Désigniation</label>
+          <textarea nbInput type="text" fullWidth></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3">
+          <label class="label" for="">N° série</label>
+          <input nbInput type="text" fullWidth />
+        </div>
+        <div class="col-lg-3">
+          <label class="label" for="">N° DI</label>
+          <!-- <input nbInput type="text" fullWidth /> -->
+          <!-- <nb-select-label>N° DI</nb-select-label> -->
+          <nb-select fullWidth>
+            <nb-option>A0</nb-option>
+            <nb-option>A1</nb-option>
+            <nb-option>A2</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-lg-3">
+          <label class="label" for="">N°</label>
+          <input nbInput type="text" fullWidth />
+        </div>
+        <div class="col-lg-3">
+          <label class="label" for="">Téchnicien</label>
+          <input nbInput type="text" fullWidth />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label class="label" for="">Tech</label>
+          <input nbInput type="text" fullWidth />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <label for="" class="label">Réparable</label>
+          <nb-radio-group>
+            <nb-radio *ngFor="let option of options" [value]="option.value">
+              {{ option.label }}
+            </nb-radio>
+          </nb-radio-group>
+        </div>
+        <div class="col-lg-6">
+          <label for="" class="label">PDR</label>
+          <nb-radio-group>
+            <nb-radio *ngFor="let option of options" [value]="option.value">
+              {{ option.label }}
+            </nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="" class="label">Remarque</label>
+          <textarea nbInput fullWidth placeholder="Textarea"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="" class="label">Remarque</label>
+          <textarea nbInput fullWidth placeholder="Textarea"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <label for="" class="label">Validation</label>
+          <nb-radio-group>
+            <nb-radio *ngFor="let option of options" [value]="option.value">
+              {{ option.label }}
+            </nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 justify-btn">
+          <button nbButton status="success" fullWidth>Ajouter</button>
+          <button nbButton status="danger" fullWidth>Annuler</button>
+        </div>
+      </div>
+    </form>
   </nb-card-body>
 </nb-card>

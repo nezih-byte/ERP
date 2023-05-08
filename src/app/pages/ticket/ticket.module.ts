@@ -7,6 +7,7 @@ import {
   NbCardModule,
   NbInputModule,
   NbRadioModule,
+  NbSelectModule,
   NbStepperModule,
 } from "@nebular/theme";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -17,12 +18,12 @@ import { AddTicketComponent } from "./add-ticket/add-ticket.component";
   declarations: [TicketComponent, AddTicketComponent],
   imports: [
     TicketRoutingModule,
-    NbStepperModule,
+    NbSelectModule,
     CommonModule,
     TicketRoutingModule,
     NbCardModule,
     NbInputModule,
-    NbStepperModule,
+
     ReactiveFormsModule,
     NbRadioModule,
     NbButtonModule,
