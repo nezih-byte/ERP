@@ -20,7 +20,6 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
     ClientRoutingModule,
     NbCardModule,
     NbInputModule,
-    NbStepperModule,
     ReactiveFormsModule,
     NbRadioModule,
     NbButtonModule,
