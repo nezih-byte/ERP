@@ -6,15 +6,17 @@ import { ClientRoutingModule } from "./table-client-routing.module";
 import {
   NbButtonModule,
   NbCardModule,
+  NbIconModule,
   NbInputModule,
   NbRadioModule,
   NbStepperModule,
 } from "@nebular/theme";
 import { ReactiveFormsModule } from "@angular/forms";
 import { Ng2SmartTableModule } from "ng2-smart-table";
+import { ChoicesComponent } from "./choices/choices.component";
 
 @NgModule({
-  declarations: [TableClientComponent, AddClientComponent],
+  declarations: [TableClientComponent, AddClientComponent, ChoicesComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
@@ -24,6 +26,7 @@ import { Ng2SmartTableModule } from "ng2-smart-table";
     NbRadioModule,
     NbButtonModule,
     Ng2SmartTableModule,
+    NbIconModule,
   ],
 })
 export class TableClietModule {}

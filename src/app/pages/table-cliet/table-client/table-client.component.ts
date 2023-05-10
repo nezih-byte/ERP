@@ -12,9 +12,9 @@ export class TableClientComponent implements OnInit {
 
   settings = {
     actions: {
-      add: false,
-      edit: false,
-      delete: false,
+      add: true,
+      edit: true,
+      delete: true,
       custom: [
         {
           name: "passValue",
@@ -39,29 +39,29 @@ export class TableClientComponent implements OnInit {
     },
     columns: {
       nameUser: {
-        title: "Intitulé",
+        title: "ID",
         type: "string",
       },
 
       phone: {
-        title: "N° de téléphone",
+        title: "Fistname",
         type: "number",
       },
-      email: {
-        title: "E-mail",
+      test: {
+        title: "Lastname",
         type: "string",
       },
       region: {
-        title: "Région",
+        title: "Address",
         type: "string",
       },
       address: {
-        title: "Adresse",
+        title: "Phone",
         type: "string",
       },
 
-      toDetails: {
-        title: "Affecter des TPEs",
+      email: {
+        title: "email",
         type: "custom",
       },
     },

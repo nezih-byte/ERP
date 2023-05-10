@@ -1,0 +1,39 @@
+.card-flex-container {
+  display: flex;
+}
+
+.card-flex-container nb-card {
+  flex: 1;
+}
+
+.justify-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  gap: 2rem;
+}
+.cardsocieteclient {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.textunderheader {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.justify-card div {
+  cursor: pointer;
+}
+
+.animation:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.1);
+}
+a {
+  text-decoration: none;
+}
