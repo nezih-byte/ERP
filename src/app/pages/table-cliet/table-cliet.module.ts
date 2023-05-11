@@ -14,9 +14,10 @@ import {
 import { ReactiveFormsModule } from "@angular/forms";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { ChoicesComponent } from "./choices/choices.component";
+import { AddCompanyComponent } from './add-company/add-company.component';
 
 @NgModule({
-  declarations: [TableClientComponent, AddClientComponent, ChoicesComponent],
+  declarations: [TableClientComponent, AddClientComponent, ChoicesComponent, AddCompanyComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,

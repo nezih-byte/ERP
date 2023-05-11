@@ -9,6 +9,7 @@ export class ChoicesComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
   onCreateNewClient() {
     console.log("Client work");
   }

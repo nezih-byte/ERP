@@ -1,25 +1,23 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Apollo } from "apollo-angular";
 import { TableClientService } from "../table-client.service";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
-  selector: "ngx-add-client",
-  templateUrl: "./add-client.component.html",
-  styleUrls: ["./add-client.component.scss"],
+  selector: "ngx-add-company",
+  templateUrl: "./add-company.component.html",
+  styleUrls: ["./add-company.component.scss"],
 })
-export class AddClientComponent implements OnInit {
+export class AddCompanyComponent implements OnInit {
   addUser = new FormGroup({
-    //nameUser: new FormControl("", [Validators.required]),
     firstName: new FormControl("", [Validators.required]),
     lastName: new FormControl("", [Validators.required]),
     address: new FormControl("", [Validators.required]),
     phone: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
   });
-  typeUser: any;
-
+  typeUser: string;
   constructor(
     private apollo: Apollo,
     private clientService: TableClientService,

@@ -1,6 +1,6 @@
 <nb-card class="row justify-card">
   <nb-card
-    [routerLink]="['/pages/tableClient/add-client']"
+    [routerLink]="['/pages/tableClient/add-client', 'CLIENT']"
     size="medium"
     class="col-lg-4 animation"
     (click)="onCreateNewClient()"
@@ -19,6 +19,7 @@
     size="medium"
     class="col-lg-4 animation"
     (click)="onCreateNewSociete()"
+    [routerLink]="['/pages/tableClient/add-company', 'COMPANY']"
   >
     <div class="cardsocieteclient">
       <nb-icon icon="people-outline" style="font-size: 10rem"></nb-icon>

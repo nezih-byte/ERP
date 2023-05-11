@@ -1,90 +1,99 @@
 <nb-card>
-  <nb-card-header>Add client</nb-card-header>
+  <nb-card-header>creation de ticket</nb-card-header>
   <nb-card-body>
-    <form [formGroup]="firstForm">
+    <form [formGroup]="addTicket">
       <div class="row">
         <div class="col-lg-12">
           <label class="label" for="">Désigniation</label>
-          <textarea nbInput type="text" fullWidth></textarea>
+          <textarea
+            nbInput
+            type="text"
+            fullWidth
+            formControlName="designiation"
+          ></textarea>
         </div>
+      </div>
+      <div class="col-lg-6">
+        <label for="" class="label">Client ou societe</label>
+        <nb-radio-group formControlName="typeClient">
+          <nb-radio *ngFor="let option of options" [value]="option.value">
+            {{ option.label }}
+          </nb-radio>
+        </nb-radio-group>
       </div>
       <div class="row">
         <div class="col-lg-3">
           <label class="label" for="">N° série</label>
-          <input nbInput type="text" fullWidth />
+          <input nbInput type="text" fullWidth formControlName="numSerie" />
         </div>
         <div class="col-lg-3">
-          <label class="label" for="">N° DI</label>
-          <!-- <input nbInput type="text" fullWidth /> -->
-          <!-- <nb-select-label>N° DI</nb-select-label> -->
-          <nb-select fullWidth>
-            <nb-option>A0</nb-option>
-            <nb-option>A1</nb-option>
-            <nb-option>A2</nb-option>
+          <label class="label" for="">Emplacement</label>
+          <nb-select fullWidth formControlName="emplacement">
+            <nb-option *ngFor="let e of emplacement" [value]="e.local">
+              {{ e.local }}
+            </nb-option>
           </nb-select>
         </div>
         <div class="col-lg-3">
           <label class="label" for="">N°</label>
-          <input nbInput type="text" fullWidth />
+          <input nbInput type="text" fullWidth formControlName="numero" />
         </div>
         <div class="col-lg-3">
-          <label class="label" for="">Téchnicien</label>
-          <input nbInput type="text" fullWidth />
+          <label class="label" for=""> Suggest Téchnicien</label>
+          <nb-select fullWidth formControlName="techNameSug">
+            <nb-option *ngFor="let e of emplacement" [value]="e.local"
+              >Tech 1</nb-option
+            >
+          </nb-select>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-lg-12">
-          <label class="label" for="">Tech</label>
-          <input nbInput type="text" fullWidth />
-        </div>
-      </div>
       <div class="row">
         <div class="col-lg-6">
           <label for="" class="label">Réparable</label>
-          <nb-radio-group>
+          <nb-radio-group formControlName="reparable">
             <nb-radio *ngFor="let option of options" [value]="option.value">
               {{ option.label }}
             </nb-radio>
           </nb-radio-group>
         </div>
+
         <div class="col-lg-6">
           <label for="" class="label">PDR</label>
-          <nb-radio-group>
-            <nb-radio *ngFor="let option of options" [value]="option.value">
+          <nb-radio-group formControlName="pdr">
+            <nb-radio *ngFor="let option of options1" [value]="option.label">
               {{ option.label }}
             </nb-radio>
           </nb-radio-group>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <label for="" class="label">Remarque</label>
-          <textarea nbInput fullWidth placeholder="Textarea"></textarea>
         </div>
       </div>
 
       <div class="row">
         <div class="col-lg-12">
           <label for="" class="label">Remarque</label>
-          <textarea nbInput fullWidth placeholder="Textarea"></textarea>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <label for="" class="label">Validation</label>
-          <nb-radio-group>
-            <nb-radio *ngFor="let option of options" [value]="option.value">
-              {{ option.label }}
-            </nb-radio>
-          </nb-radio-group>
+          <textarea
+            nbInput
+            fullWidth
+            placeholder="Textarea"
+            formControlName="remarque"
+          ></textarea>
         </div>
       </div>
 
       <div class="row">
         <div class="col-lg-12 justify-btn">
-          <button nbButton status="success" fullWidth>Ajouter</button>
-          <button nbButton status="danger" fullWidth>Annuler</button>
+          <button nbButton status="success" fullWidth (click)="sendTicket()">
+            Ajouter
+          </button>
+
+          <button
+            nbButton
+            status="danger"
+            fullWidth
+            (click)="addTicket.reset()"
+          >
+            Annuler
+          </button>
         </div>
       </div>
     </form>

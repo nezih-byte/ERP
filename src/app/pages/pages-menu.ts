@@ -18,7 +18,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: "Client",
-    icon: "layout-outline",
+    icon: "person-outline",
     children: [
       {
         title: "Add",
