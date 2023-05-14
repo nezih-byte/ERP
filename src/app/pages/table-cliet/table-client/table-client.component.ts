@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { Apollo } from "apollo-angular";
+import { TableClientService } from "../table-client.service";
+import { LocalDataSource } from "ng2-smart-table";
 
 @Component({
   selector: "ngx-table-client",
@@ -6,15 +9,21 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./table-client.component.scss"],
 })
 export class TableClientComponent implements OnInit {
-  constructor() {}
+  listOfClient: LocalDataSource;
+  constructor(
+    private apollo: Apollo,
+    private clientService: TableClientService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getClientCompany();
+  }
 
   settings = {
     actions: {
-      add: true,
-      edit: true,
-      delete: true,
+      add: false,
+      edit: false,
+      delete: false,
       custom: [
         {
           name: "passValue",
@@ -38,76 +47,63 @@ export class TableClientComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      nameUser: {
+      firstName: {
         title: "ID",
         type: "string",
       },
 
-      phone: {
+      lastName: {
         title: "Fistname",
-        type: "number",
+        type: "string",
       },
-      test: {
+      email: {
         title: "Lastname",
         type: "string",
       },
-      region: {
+      address: {
         title: "Address",
         type: "string",
       },
-      address: {
+      phone: {
         title: "Phone",
         type: "string",
       },
 
-      email: {
-        title: "email",
-        type: "custom",
+      type: {
+        title: "Type",
+        type: "string",
       },
     },
   };
 
-  data = [
-    {
-      id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz",
-    },
-    {
-      id: 2,
-      name: "Ervin Howell",
-      username: "Antonette",
-      email: "Shanna@melissa.tv",
-    },
+  // onDeleteConfirm(event) {
+  //   console.log("Delete Event In Console");
+  //   console.log(event);
+  //   if (window.confirm("Are you sure you want to delete?")) {
+  //     event.confirm.resolve();
+  //   } else {
+  //     event.confirm.reject();
+  //   }
+  // }
 
-    // ... list of items
+  // onCreateConfirm(event) {
+  //   console.log("Create Event In Console");
+  //   console.log(event);
+  // }
 
-    {
-      id: 11,
-      name: "Nicholas DuBuque",
-      username: "Nicholas.Stanton",
-      email: "Rey.Padberg@rosamond.biz",
-    },
-  ];
+  // onSaveConfirm(event) {
+  //   console.log("Edit Event In Console");
+  //   console.log(event);
+  // }
 
-  onDeleteConfirm(event) {
-    console.log("Delete Event In Console");
-    console.log(event);
-    if (window.confirm("Are you sure you want to delete?")) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
-  }
-
-  onCreateConfirm(event) {
-    console.log("Create Event In Console");
-    console.log(event);
-  }
-
-  onSaveConfirm(event) {
-    console.log("Edit Event In Console");
-    console.log(event);
+  getClientCompany() {
+    this.apollo
+      .query<any>({
+        query: this.clientService.getClientCompany(),
+      })
+      .subscribe(({ data }) => {
+        console.log(data);
+        this.listOfClient = new LocalDataSource(data.getAllClientCompany);
+      });
   }
 }

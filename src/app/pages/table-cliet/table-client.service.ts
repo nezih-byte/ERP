@@ -26,4 +26,19 @@ export class TableClientService {
       }
     `;
   }
+
+  getClientCompany() {
+    return gql`
+      {
+        getAllClientCompany {
+          firstName
+          lastName
+          email
+          phone
+          address
+          type
+        }
+      }
+    `;
+  }
 }

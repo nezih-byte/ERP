@@ -41,7 +41,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: "List tickets",
-        link: "/pages/tableClient/table-user",
+        link: "/pages/ticket/ticket-list",
       },
     ],
   },

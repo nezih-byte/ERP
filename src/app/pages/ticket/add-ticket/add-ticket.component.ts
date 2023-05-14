@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
+import { TicketService } from "../ticket/ticket.service";
 
 @Component({
   selector: "ngx-add-ticket",
@@ -49,11 +50,11 @@ export class AddTicketComponent implements OnInit {
     { value: "Societe", label: "Societe" },
     { value: "Client", label: "Client" },
   ];
-  constructor() {}
+  constructor(private ticketService: TicketService) {}
 
   ngOnInit(): void {}
 
   sendTicket() {
-    console.log(this.addTicket.value);
+    this.ticketService.addTicket(this.addTicket.value);
   }
 }

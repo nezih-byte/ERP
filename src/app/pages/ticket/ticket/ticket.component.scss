@@ -1,0 +1,38 @@
+:host ::ng-deep {
+  .ng2-smart-title {
+    width: 4rem !important;
+  }
+}
+
+:host /deep/ ng2-st-tbody-edit-delete {
+  display: flex !important;
+  height: 0 !important;
+}
+
+:host
+  /deep/
+  ng2-st-tbody-custom
+  a.ng2-smart-action.ng2-smart-action-custom-custom {
+  display: flex;
+  width: 100%;
+  text-align: center;
+}
+
+:host ::ng-deep {
+  ng2-smart-table .ng2-smart-actions a.ng2-smart-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 0%;
+    width: 100%;
+    font-size: 2rem !important;
+    color: #222b45;
+  }
+}
+
+:host
+  /deep/
+  ng2-st-tbody-custom
+  a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
+  color: #5dcfe3;
+}
