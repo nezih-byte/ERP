@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { TicketService } from "../ticket/ticket.service";
+import { Apollo } from "apollo-angular";
 
 @Component({
   selector: "ngx-add-ticket",
@@ -14,7 +15,7 @@ export class AddTicketComponent implements OnInit {
     numSerie: new FormControl("", []),
     emplacement: new FormControl("", []),
     numero: new FormControl("", []),
-    techNameSug: new FormControl("", []),
+    assignedTo: new FormControl("", []),
     reparable: new FormControl("", []),
     pdr: new FormControl("", []),
     remarque: new FormControl("", []),
@@ -50,11 +51,26 @@ export class AddTicketComponent implements OnInit {
     { value: "Societe", label: "Societe" },
     { value: "Client", label: "Client" },
   ];
-  constructor(private ticketService: TicketService) {}
+  listOfTech: any;
+  constructor(private ticketService: TicketService, private apollo: Apollo) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllTech();
+  }
 
   sendTicket() {
+    this.addTicket.value.createdBy = localStorage.getItem("username");
     this.ticketService.addTicket(this.addTicket.value);
+  }
+
+  getAllTech() {
+    this.apollo
+      .query<any>({
+        query: this.ticketService.getAllTech(),
+      })
+      .subscribe(({ data }) => {
+        console.log(data);
+        this.listOfTech = data.getAllTech;
+      });
   }
 }

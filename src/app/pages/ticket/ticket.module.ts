@@ -13,9 +13,11 @@ import {
 import { ReactiveFormsModule } from "@angular/forms";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { AddTicketComponent } from "./add-ticket/add-ticket.component";
+import { ModalTicketComponent } from './modal-ticket/modal-ticket.component';
+import { BtnOpenTicketModalComponent } from './btn-open-ticket-modal/btn-open-ticket-modal.component';
 
 @NgModule({
-  declarations: [TicketComponent, AddTicketComponent],
+  declarations: [TicketComponent, AddTicketComponent, ModalTicketComponent, BtnOpenTicketModalComponent],
   imports: [
     TicketRoutingModule,
     NbSelectModule,

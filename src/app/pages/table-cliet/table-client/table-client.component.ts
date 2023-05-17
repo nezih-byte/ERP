@@ -47,6 +47,10 @@ export class TableClientComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
+      _id: {
+        title: "ID",
+        type: "string",
+      },
       firstName: {
         title: "ID",
         type: "string",

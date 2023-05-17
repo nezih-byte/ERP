@@ -40,9 +40,9 @@
         </div>
         <div class="col-lg-3">
           <label class="label" for=""> Suggest Téchnicien</label>
-          <nb-select fullWidth formControlName="techNameSug">
-            <nb-option *ngFor="let e of emplacement" [value]="e.local"
-              >Tech 1</nb-option
+          <nb-select fullWidth formControlName="assignedTo">
+            <nb-option *ngFor="let e of listOfTech" [value]="e.username">
+              {{ e.username }}</nb-option
             >
           </nb-select>
         </div>

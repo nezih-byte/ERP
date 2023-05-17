@@ -36,3 +36,35 @@
   a.ng2-smart-action.ng2-smart-action-custom-custom:hover {
   color: #5dcfe3;
 }
+
+:host /deep/ .finished {
+  width: 5rem;
+  border-radius: 4px;
+  background-color: #da0a0a;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+:host /deep/ .pending {
+  width: 5rem;
+  border-radius: 4px;
+  background-color: #d69900;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}
+:host /deep/ .enCours {
+  width: 5rem;
+  border-radius: 4px;
+  background-color: #0095ff;
+  padding: 0.3rem;
+  margin: auto;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 600;
+}

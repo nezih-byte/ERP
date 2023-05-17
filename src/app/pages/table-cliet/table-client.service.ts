@@ -31,6 +31,7 @@ export class TableClientService {
     return gql`
       {
         getAllClientCompany {
+          _id
           firstName
           lastName
           email
