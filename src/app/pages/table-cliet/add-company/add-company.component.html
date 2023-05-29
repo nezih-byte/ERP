@@ -1,39 +1,113 @@
 <nb-card>
   <nb-card-header>Creation de client</nb-card-header>
   <nb-card-body>
-    <form [formGroup]="addUser">
+    <form [formGroup]="addCompany">
       <div class="row">
-        <div class="col-lg-6">
-          <label class="label" for="">Nom</label>
-          <input nbInput type="text" fullWidth formControlName="lastName" />
+        <div class="col-lg-12">
+          <label class="label" for="">Nom de l'entreprise</label>
+          <input nbInput type="text" fullWidth formControlName="companyName" />
         </div>
-        <div class="col-lg-6">
-          <label class="label" for="">Prenom</label>
-          <input nbInput type="text" fullWidth formControlName="firstName" />
+        <div class="col-lg-12">
+          <label class="label" for="">Numéro de TVA</label>
+          <input nbInput type="text" fullWidth formControlName="tva" />
+        </div>
+        <div class="col-lg-12">
+          <!-- <label class="label" for="">Nom de l'entreprise</label> -->
+          <nb-radio-group class="justify-radio" formControlName="localOrshore">
+            <nb-radio value="local"> Locale </nb-radio>
+            <nb-radio value="offshore"> Offshore </nb-radio>
+          </nb-radio-group>
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
           <label class="label" for="">Adresse</label>
           <input nbInput type="text" fullWidth formControlName="address" />
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-12">
+          <label class="label" for="">Région</label>
+          <nb-select formControlName="region" fullWidth>
+            <nb-option *ngFor="let r of regions" [value]="r">
+              {{ r }}
+            </nb-option>
+          </nb-select>
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Code postale</label>
+          <input nbInput type="text" fullWidth formControlName="codePostal" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Etat</label>
+          <input nbInput type="text" fullWidth formControlName="etat" />
+        </div>
+        <div class="col-lg-12">
           <label class="label" for="">Numero de telephone</label>
           <input nbInput type="text" fullWidth formControlName="phone" />
         </div>
-      </div>
-      <div class="row">
+        <div class="col-lg-12">
+          <label class="label" for="">Numero de fax</label>
+          <input nbInput type="text" fullWidth formControlName="fax" />
+        </div>
         <div class="col-lg-12">
           <label class="label" for="">E-mail</label>
           <input nbInput type="text" fullWidth formControlName="email" />
         </div>
       </div>
       <div class="row">
+        <div class="col-lg-12">
+          <label class="label" for="">Website</label>
+          <input nbInput type="text" fullWidth formControlName="website" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Condition de paiement</label>
+          <input nbInput type="text" fullWidth formControlName="conPayment" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">SWIFT / BIC</label>
+          <input nbInput type="text" fullWidth formControlName="swiftBic" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Iban code / RIB</label>
+          <input nbInput type="text" fullWidth formControlName="ibanRib" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <label class="label" for="">Technical contact</label>
+          <input nbInput type="text" fullWidth formControlName="techContact" />
+        </div>
+        <p class="caption status-danger">
+          Only for tunisian partner / uniquement pour les client - fournisseur
+          tunisiens:
+        </p>
+
+        <div class="col-lg-12">
+          <label class="label" for="">Code fiscal</label>
+          <input nbInput type="text" fullWidth formControlName="codeFiscal" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Numéro de register de commerce</label>
+          <input
+            nbInput
+            type="text"
+            fullWidth
+            formControlName="nRegisterCommerce"
+          />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for=""
+            >Numero de l'attestation d'exonération</label
+          >
+          <input nbInput type="text" fullWidth formControlName="nattestation" />
+        </div>
+      </div>
+
+      <div class="row">
         <div class="justify-btn">
-          <button status="success" (click)="createUser()" nbButton>
+          <button status="success" (click)="createCompany()" nbButton>
             Ajouter
           </button>
-          <button status="danger" (click)="addUser.reset()" nbButton>
+          <button status="danger" (click)="addCompany.reset()" nbButton>
             Vider
           </button>
         </div>

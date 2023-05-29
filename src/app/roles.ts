@@ -3,4 +3,13 @@ export const ROLE = {
   ADMIN_TECH: "ADMIN_TECH",
   MANAGER: "MANAGER",
   TECH: "TECH",
+  MAGASIN: "MAGASIN",
 };
+
+export interface ROLE {
+  ADMIN_MANAGER: "ADMIN_MANAGER";
+  ADMIN_TECH: "ADMIN_TECH";
+  MANAGER: "MANAGER";
+  TECH: "TECH";
+  MAGASIN: "MAGASIN";
+}

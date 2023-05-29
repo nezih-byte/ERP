@@ -103,11 +103,11 @@ export class TableClientComponent implements OnInit {
   getClientCompany() {
     this.apollo
       .query<any>({
-        query: this.clientService.getClientCompany(),
+        query: this.clientService.getClient(),
       })
       .subscribe(({ data }) => {
         console.log(data);
-        this.listOfClient = new LocalDataSource(data.getAllClientCompany);
+        this.listOfClient = new LocalDataSource(data.getAllClient);
       });
   }
 }

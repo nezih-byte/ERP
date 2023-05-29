@@ -11,14 +11,42 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class AddClientComponent implements OnInit {
   addUser = new FormGroup({
-    //nameUser: new FormControl("", [Validators.required]),
     firstName: new FormControl("", [Validators.required]),
     lastName: new FormControl("", [Validators.required]),
     address: new FormControl("", [Validators.required]),
     phone: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
+    region: new FormControl("", [Validators.required, Validators.email]),
+    codePostal: new FormControl("", [Validators.required, Validators.email]),
   });
   typeUser: any;
+
+  regions = [
+    "Ariana",
+    "Béja",
+    "Ben Arous",
+    "Bizerte",
+    "Gabès",
+    "Gafsa",
+    "Jendouba",
+    "Kairaouan",
+    "Kasserine",
+    "Kebili",
+    "Kef",
+    "Mahdia",
+    "Manouba",
+    "Mednine",
+    "Monastir",
+    "Nabeul",
+    "Sfax",
+    "Sidi Bouzid",
+    "Siliana",
+    "Sousse",
+    "Tataouine",
+    "Tozeur",
+    "Tunis",
+    "Zaghouan",
+  ];
 
   constructor(
     private apollo: Apollo,
@@ -32,6 +60,7 @@ export class AddClientComponent implements OnInit {
   }
 
   createUser() {
+    console.log(this.addUser.value, "data");
     this.apollo
       .mutate<any>({
         mutation: this.clientService.addClient(

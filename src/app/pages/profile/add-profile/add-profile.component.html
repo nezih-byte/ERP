@@ -1,0 +1,53 @@
+<nb-card>
+  <nb-card-header>Ajouter Profil</nb-card-header>
+
+  <nb-card-body>
+    <form [formGroup]="addProfile">
+      <div class="row">
+        <div class="col-lg-12">
+          <label class="label">Nom d'utilisateur</label>
+          <input nbInput fullWidth formControlName="username" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label">Prénom</label>
+          <input nbInput fullWidth formControlName="firstName" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label">Nom</label>
+          <input nbInput fullWidth formControlName="lastName" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label">E-mail</label>
+          <input nbInput fullWidth formControlName="email" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label">Téléphone</label>
+          <input nbInput fullWidth formControlName="phone" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label">Mot de passe</label>
+          <input nbInput fullWidth formControlName="password" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label">Adresse</label>
+          <input nbInput fullWidth formControlName="address" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label">Role</label>
+          <nb-select fullWidth formControlName="role">
+            <nb-option *ngFor="let r of roles" [value]="r"> {{ r }} </nb-option>
+          </nb-select>
+        </div>
+
+        <div class="justify-btn">
+          <button nbButton status="success" (click)="saveProfile()">
+            Valider
+          </button>
+          <button nbButton status="danger" (click)="addProfile.reset()">
+            Annuler
+          </button>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,22 @@
+<nb-card>
+  <nb-card-header>Ajouter un emplacement</nb-card-header>
+  <nb-card-body>
+    <form class="row">
+      <div class="col-lg-12">
+        <label class="label">Saisir le nom de l'emplacement</label>
+        <input
+          type="text"
+          nbInput
+          name="LocationInput"
+          [(ngModel)]="locationInput"
+          fullWidth
+        />
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer
+    ><button nbButton status="success" (click)="addLocation()">
+      Valider
+    </button></nb-card-footer
+  >
+</nb-card>

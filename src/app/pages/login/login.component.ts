@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/pages/dashboardGlobal/dashboardGlobal"]);
           console.log("Im data", data);
           localStorage.setItem("token", data.login.access_token);
-
           localStorage.setItem("email", data.login.user.email);
           localStorage.setItem("role", data.login.user.role);
           localStorage.setItem("username", data.login.user.username);

@@ -16,17 +16,38 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: "Features",
     group: true,
   },
+
+  //profile
+
+  {
+    title: "STAFF",
+    icon: "person-outline",
+    children: [
+      {
+        title: "Ajouter personel",
+        link: "/pages/profile/add-profile",
+      },
+      {
+        title: "Liste des clients",
+        link: "/pages/profile/list-profile",
+      },
+    ],
+  },
   {
     title: "Client",
     icon: "person-outline",
     children: [
       {
-        title: "Add",
+        title: "Ajouter client / société",
         link: "/pages/tableClient/choices",
       },
       {
-        title: "List clients",
+        title: "Liste des clients",
         link: "/pages/tableClient/table-user",
+      },
+      {
+        title: "List des société",
+        link: "/pages/tableClient/table-company",
       },
     ],
   },

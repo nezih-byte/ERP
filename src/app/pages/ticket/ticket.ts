@@ -1,6 +1,5 @@
 export interface Ticket {
   _id: string;
-
   designiation?: string;
   typeClient?: string;
   emplacement?: string;
@@ -14,4 +13,10 @@ export interface Ticket {
   createdAt?: Date;
   updatedAt?: Date;
   lapTime?: string;
+  role?: string;
+  titre?: string;
+  pdfComposant?: string;
+  affectedToCompany?: string;
+  affectedToClient?: string;
+  composant: any[];
 }

@@ -1,9 +1,23 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { NbDialogRef } from "@nebular/theme";
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { NbDialogRef, NbTagComponent } from "@nebular/theme";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
 import * as moment from "moment";
+import { ShareService } from "../../../share-data/share.service";
+import { ROLE } from "../../../roles";
 
 @Component({
   selector: "ngx-modal-ticket",
@@ -13,19 +27,23 @@ import * as moment from "moment";
 export class ModalTicketComponent implements OnInit {
   @Input() rowData: any;
   updateTicket = new FormGroup({
+    title: new FormControl("", [Validators.required]),
     designiation: new FormControl("", [Validators.required]),
     typeClient: new FormControl("", [Validators.required]),
     numSerie: new FormControl("", [Validators.required]),
     numero: new FormControl("", [Validators.required]),
     assignedTo: new FormControl("", [Validators.required]),
     reparable: new FormControl("", [Validators.required]),
-    pdr: new FormControl("", [Validators.required]),
+    pdr: new FormControl("non", [Validators.required]),
     remarque: new FormControl("", [Validators.required]),
     emplacement: new FormControl("", [Validators.required]),
+    role: new FormControl("", [Validators.required]),
   });
 
-  ticketId: string;
+  pdrControl: FormControl;
 
+  ticketId: string;
+  ROLE = ["ADMIN_MANAGER", "ADMIN_TECH", "MANAGER", "TECH", "MAGASIN"];
   minutes: string = "00";
   seconds: string = "00";
   milliseconds: string = "00";
@@ -33,20 +51,85 @@ export class ModalTicketComponent implements OnInit {
   startTime: number = 0;
   laps: string[] = [];
   lapTime: string;
+  isModalOpened: any;
+  listOfIssue: any;
+  pdrStatus: string;
+  trees: any = [];
+  quantite: number;
+  nomComposant: string;
+  vari = "Hello";
+  isReparable: any;
+
   constructor(
     private dialogRef: NbDialogRef<ModalTicketComponent>,
     private ticketService: TicketService,
-    private apollo: Apollo
+    private apollo: Apollo,
+    private share: ShareService,
+    private cdr: ChangeDetectorRef,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.updateTicketToInProgress();
     this.startStopwatch();
-    console.log(this.rowData, "row data from button");
+    this.isOpenCheck();
+    this.getAllIssue();
+    this.myForm = new FormGroup({
+      nomComposant: new FormControl(null),
+      quantite: new FormControl(null),
+    });
+  }
+  myForm: FormGroup;
+
+  updatePDRValue(data) {
+    console.log(data, "pdr");
+    console.log("type of pdr", typeof data);
+    this.cdr.detectChanges();
+    this.pdrStatus = data;
+  }
+
+  updateReparableValue(data) {
+    this.isReparable = data;
+    this.cdr.detectChanges();
+  }
+
+  ajouterComposant() {
+    let objectComposant: any = { nameComposant: "", quantiteComposant: 0 };
+
+    const nomComposantValue = this.myForm.get("nomComposant").value;
+    const quantiteValue = this.myForm.get("quantite").value;
+
+    objectComposant["nameComposant"] = nomComposantValue;
+    objectComposant["quantiteComposant"] = +quantiteValue;
+    this.trees.push(objectComposant);
+
+    console.log(this.trees, "ajout trees");
   }
 
   dateFormat(date: string) {
     return moment(date).format("HH:mm:ss");
+  }
+
+  isOpenCheck() {
+    this.apollo
+      .mutate<any>({
+        mutation: this.ticketService.isOpen(this.ticketId),
+      })
+      .subscribe(({ data }) => {
+        console.log("Modal opened check", data);
+      });
+  }
+
+  onTagRemove(tagToRemove: NbTagComponent): void {
+    const indexToRemove = this.trees.findIndex(
+      (tree) => tree.nameComposant === tagToRemove.text
+    );
+
+    if (indexToRemove !== -1) {
+      this.trees.splice(indexToRemove, 1);
+    }
+
+    console.log(this.trees, "Updated trees array");
   }
 
   updateTicketConfirm() {
@@ -63,7 +146,11 @@ export class ModalTicketComponent implements OnInit {
       reparable: this.updateTicket.value.reparable,
       pdr: this.updateTicket.value.pdr,
       lapTime: this.lapTime,
+      role: this.updateTicket.value.role,
+      composant: this.trees,
     };
+
+    console.log(dataToUpdate, "data to update");
 
     this.apollo
       .mutate<any>({
@@ -71,10 +158,22 @@ export class ModalTicketComponent implements OnInit {
       })
       .subscribe(({ data }) => {
         console.log(data);
+        this.isModalOpened = data;
+        this.ticketService.sendToMagasin(dataToUpdate);
       });
     this.updateStatusToFinish();
 
-    this.dialogRef.close();
+    this.dialogRef.close(true);
+  }
+
+  getAllIssue() {
+    this.apollo
+      .query<any>({
+        query: this.ticketService.getAllIssues(),
+      })
+      .subscribe(({ data }) => {
+        this.listOfIssue = data.getAllIssue;
+      });
   }
 
   startStopwatch() {

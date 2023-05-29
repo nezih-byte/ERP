@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { gql } from "apollo-angular";
+import { Profile } from "./profile.interface";
 
 @Injectable({
   providedIn: "root",
@@ -25,6 +26,29 @@ export class ProfileService {
         login(loginAuthInput: { username: "${username}", password: "${password}" }) {
           access_token
           user{ role  username email }
+        }
+      }
+    `;
+  }
+
+  addProfile(addProfile: Profile) {
+    return gql`
+      mutation{createProfile(createProfileInput:{username:"${addProfile.username}",firstName:"${addProfile.firstName}",lastName:"${addProfile.lastName}",password:"${addProfile.password}",phone:"${addProfile.phone}",role:"${addProfile.role}",email:"${addProfile.email}"}){firstName}}
+    `;
+  }
+
+  getListProfile() {
+    return gql`
+      {
+        getAllProfiles {
+          username
+          firstName
+          lastName
+          phone
+          role
+          email
+          createdAt
+          updatedAt
         }
       }
     `;

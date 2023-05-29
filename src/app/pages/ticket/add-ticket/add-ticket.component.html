@@ -4,7 +4,11 @@
     <form [formGroup]="addTicket">
       <div class="row">
         <div class="col-lg-12">
-          <label class="label" for="">Désigniation</label>
+          <label class="label" for="">Titre</label>
+          <input nbInput type="text" fullWidth formControlName="title" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Description</label>
           <textarea
             nbInput
             type="text"
@@ -14,12 +18,32 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <label for="" class="label">Client ou societe</label>
-        <nb-radio-group formControlName="typeClient">
-          <nb-radio *ngFor="let option of options" [value]="option.value">
-            {{ option.label }}
-          </nb-radio>
+        <label for="" class="label">Type</label>
+        <nb-radio-group
+          class="align-radio"
+          formControlName="typeClient"
+          (ngModelChange)="getSelectedTypeClient($event)"
+        >
+          <nb-radio value="Société">Société</nb-radio>
+          <nb-radio value="Client">Client</nb-radio>
         </nb-radio-group>
+      </div>
+      <div class="col-lg-6" *ngIf="checkedTypeClient === 'Client'">
+        <label class="label" for="">Choisr le client</label>
+        <nb-select fullWidth formControlName="affectedToClient">
+          <nb-option *ngFor="let c of listOfClient" [value]="c._id">
+            {{ c.firstName }}
+          </nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-lg-6" *ngIf="checkedTypeClient === 'Société'">
+        <label class="label" for="">Choisr la société</label>
+        <nb-select fullWidth formControlName="affectedToCompany">
+          <nb-option *ngFor="let c of listOfCompany" [value]="c._id">
+            {{ c.companyName }}
+          </nb-option>
+        </nb-select>
       </div>
       <div class="row">
         <div class="col-lg-3">
@@ -29,17 +53,17 @@
         <div class="col-lg-3">
           <label class="label" for="">Emplacement</label>
           <nb-select fullWidth formControlName="emplacement">
-            <nb-option *ngFor="let e of emplacement" [value]="e.local">
-              {{ e.local }}
+            <nb-option *ngFor="let e of emplacement" [value]="e._id">
+              {{ e.locationName }}
             </nb-option>
           </nb-select>
         </div>
         <div class="col-lg-3">
-          <label class="label" for="">N°</label>
+          <label class="label" for="">N° DI</label>
           <input nbInput type="text" fullWidth formControlName="numero" />
         </div>
         <div class="col-lg-3">
-          <label class="label" for=""> Suggest Téchnicien</label>
+          <label class="label" for="">Téchnicien</label>
           <nb-select fullWidth formControlName="assignedTo">
             <nb-option *ngFor="let e of listOfTech" [value]="e.username">
               {{ e.username }}</nb-option
@@ -48,27 +72,50 @@
         </div>
       </div>
 
+      <!-- to hide administration -->
       <div class="row">
-        <div class="col-lg-6">
-          <label for="" class="label">Réparable</label>
-          <nb-radio-group formControlName="reparable">
-            <nb-radio *ngFor="let option of options" [value]="option.value">
-              {{ option.label }}
-            </nb-radio>
+        <!-- <div class="col-lg-12">
+          <label class="label" for="">Réparable</label>
+          <nb-radio-group formControlName="reparable" name="ng-model-group">
+            <nb-radio value="Oui">Oui</nb-radio>
+            <nb-radio value="Non">Non</nb-radio>
           </nb-radio-group>
-        </div>
 
-        <div class="col-lg-6">
-          <label for="" class="label">PDR</label>
-          <nb-radio-group formControlName="pdr">
-            <nb-radio *ngFor="let option of options1" [value]="option.label">
-              {{ option.label }}
-            </nb-radio>
+          <label class="label" for="">PDR</label>
+          <nb-radio-group formControlName="pdr" name="reactive-forms-group">
+            <nb-radio value="Oui">Oui</nb-radio>
+            <nb-radio value="Non">Non</nb-radio>
           </nb-radio-group>
-        </div>
-      </div>
+        </div> -->
+        <!-- PDF 4 fields -->
 
-      <div class="row">
+        <!--
+          <div>
+          Devis
+          <input formControlName="Devis" type="file" (change)="onFileSelected($event)" />
+          <button (click)="saveSelectedFile()">Valider</button>
+        </div> -->
+
+        <div class="col-lg-12">
+          <label class="label" for="">Devis</label>
+          <input nbInput fullWidth type="text" formControlName="Devis" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Bon de livraison</label>
+          <input nbInput fullWidth type="text" formControlName="bl" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Facture</label>
+          <input nbInput fullWidth type="text" formControlName="facture" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">Bon de commande</label>
+          <input nbInput fullWidth type="text" formControlName="bc" />
+        </div>
+        <div class="col-lg-12">
+          <label class="label" for="">PDF composant</label>
+          <input nbInput fullWidth type="text" formControlName="pdfComposant" />
+        </div>
         <div class="col-lg-12">
           <label for="" class="label">Remarque</label>
           <textarea

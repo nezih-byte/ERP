@@ -1,0 +1,42 @@
+<nb-card size="giant">
+  <nb-card>
+    <nb-card-header>Réapration to add title ticket // timer </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="updateTicket">
+        <div class="row">
+          <div class="col-lg-12">
+            <label class="label" for="">Description réel</label>
+            <textarea
+              nbInput
+              type="text"
+              fullWidth
+              formControlName="designiation"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 justify-btn">
+            <button
+              nbButton
+              status="success"
+              fullWidth
+              (click)="updateTicketConfirm()"
+            >
+              Ajouter
+            </button>
+
+            <button
+              nbButton
+              status="danger"
+              fullWidth
+              (click)="updateTicket.reset()"
+            >
+              Annuler
+            </button>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</nb-card>

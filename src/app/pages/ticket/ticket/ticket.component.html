@@ -1,5 +1,15 @@
 <nb-card>
-  <nb-card-header></nb-card-header>
+  <nb-card-header class="header"
+    ><span>Liste des tickets</span
+    ><span class="justify-btn" *ngIf="loggedInUser === 'ADMIN_TECH'">
+      <button nbButton status="info" (click)="openModal()">
+        Ajouter panne
+      </button>
+      <button nbButton status="warn" (click)="openModalLocation()">
+        Ajouter emplacement
+      </button>
+    </span>
+  </nb-card-header>
   <nb-card-body>
     <ng2-smart-table
       [settings]="settings"

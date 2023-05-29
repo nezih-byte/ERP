@@ -10,14 +10,56 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
   styleUrls: ["./add-company.component.scss"],
 })
 export class AddCompanyComponent implements OnInit {
-  addUser = new FormGroup({
-    firstName: new FormControl("", [Validators.required]),
-    lastName: new FormControl("", [Validators.required]),
+  addCompany = new FormGroup({
+    companyName: new FormControl("", [Validators.required]),
     address: new FormControl("", [Validators.required]),
     phone: new FormControl("", [Validators.required]),
     email: new FormControl("", [Validators.required, Validators.email]),
+    region: new FormControl("", [Validators.required, Validators.email]),
+    codePostal: new FormControl("", [Validators.required, Validators.email]),
+    tva: new FormControl("", [Validators.required, Validators.email]),
+    localOrshore: new FormControl("", [Validators.required, Validators.email]),
+    etat: new FormControl("", [Validators.required, Validators.email]),
+    fax: new FormControl("", [Validators.required, Validators.email]),
+    website: new FormControl("", [Validators.required, Validators.email]),
+    conPayment: new FormControl("", [Validators.required, Validators.email]),
+    techContact: new FormControl("", [Validators.required, Validators.email]),
+    codeFiscal: new FormControl("", [Validators.required, Validators.email]),
+    nattestation: new FormControl("", [Validators.required, Validators.email]),
+    swiftBic: new FormControl("", [Validators.required, Validators.email]),
+    ibanRib: new FormControl("", [Validators.required, Validators.email]),
+    nRegisterCommerce: new FormControl("", [
+      Validators.required,
+      Validators.email,
+    ]),
   });
   typeUser: string;
+  regions = [
+    "Ariana",
+    "Béja",
+    "Ben Arous",
+    "Bizerte",
+    "Gabès",
+    "Gafsa",
+    "Jendouba",
+    "Kairaouan",
+    "Kasserine",
+    "Kebili",
+    "Kef",
+    "Mahdia",
+    "Manouba",
+    "Mednine",
+    "Monastir",
+    "Nabeul",
+    "Sfax",
+    "Sidi Bouzid",
+    "Siliana",
+    "Sousse",
+    "Tataouine",
+    "Tozeur",
+    "Tunis",
+    "Zaghouan",
+  ];
   constructor(
     private apollo: Apollo,
     private clientService: TableClientService,
@@ -29,11 +71,12 @@ export class AddCompanyComponent implements OnInit {
     console.log(this.typeUser, "data");
   }
 
-  createUser() {
+  createCompany() {
+    console.log(this.addCompany.value, "form data company");
     this.apollo
       .mutate<any>({
         mutation: this.clientService.addClient(
-          this.addUser.value,
+          this.addCompany.value,
           this.typeUser
         ),
       })

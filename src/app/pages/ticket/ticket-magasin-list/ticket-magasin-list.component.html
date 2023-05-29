@@ -1,0 +1,22 @@
+<nb-card>
+  <nb-card-header>Magasin</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="magasinField">
+      <div class="row">
+        <div class="col-lg-12">
+          <label class="label" for="">Choisir état</label>
+          <nb-select fullWidth formControlName="etat">
+            <nb-option *ngFor="let e of optionMagasin" [value]="e">
+              {{ e }}
+            </nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-lg-12">
+          <label for=""></label>
+          <input nbInput type="text" />
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

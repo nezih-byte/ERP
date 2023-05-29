@@ -14,7 +14,13 @@ const routes: Routes = [
     component: PagesComponent,
     canActivate: [GuardAuth],
     data: {
-      role: [ROLE.ADMIN_MANAGER, ROLE.ADMIN_TECH, ROLE.MANAGER, ROLE.TECH],
+      role: [
+        ROLE.ADMIN_MANAGER,
+        ROLE.ADMIN_TECH,
+        ROLE.MANAGER,
+        ROLE.MAGASIN,
+        ROLE.TECH,
+      ],
     },
     children: [
       {
@@ -43,6 +49,11 @@ const routes: Routes = [
           import("./table-cliet/table-cliet.module").then(
             (m) => m.TableClietModule
           ),
+      },
+      {
+        path: "profile",
+        loadChildren: () =>
+          import("./profile/profile.module").then((m) => m.ProfileModule),
       },
       {
         path: "ticket",

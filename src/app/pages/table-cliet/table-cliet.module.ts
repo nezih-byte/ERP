@@ -9,15 +9,23 @@ import {
   NbIconModule,
   NbInputModule,
   NbRadioModule,
+  NbSelectModule,
   NbStepperModule,
 } from "@nebular/theme";
 import { ReactiveFormsModule } from "@angular/forms";
 import { Ng2SmartTableModule } from "ng2-smart-table";
 import { ChoicesComponent } from "./choices/choices.component";
-import { AddCompanyComponent } from './add-company/add-company.component';
+import { AddCompanyComponent } from "./add-company/add-company.component";
+import { CompanyListComponent } from './company-list/company-list.component';
 
 @NgModule({
-  declarations: [TableClientComponent, AddClientComponent, ChoicesComponent, AddCompanyComponent],
+  declarations: [
+    TableClientComponent,
+    AddClientComponent,
+    ChoicesComponent,
+    AddCompanyComponent,
+    CompanyListComponent,
+  ],
   imports: [
     CommonModule,
     ClientRoutingModule,
@@ -28,6 +36,7 @@ import { AddCompanyComponent } from './add-company/add-company.component';
     NbButtonModule,
     Ng2SmartTableModule,
     NbIconModule,
+    NbSelectModule,
   ],
 })
 export class TableClietModule {}

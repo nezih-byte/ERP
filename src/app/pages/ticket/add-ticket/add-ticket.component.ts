@@ -1,7 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
+import { log } from "console";
+import { TableClientService } from "../../table-cliet/table-client.service";
+import { LocalDataSource } from "ng2-smart-table";
 
 @Component({
   selector: "ngx-add-ticket",
@@ -16,19 +19,18 @@ export class AddTicketComponent implements OnInit {
     emplacement: new FormControl("", []),
     numero: new FormControl("", []),
     assignedTo: new FormControl("", []),
-    reparable: new FormControl("", []),
-    pdr: new FormControl("", []),
+    affectedToCompany: new FormControl("", []),
+    affectedToClient: new FormControl("", []),
     remarque: new FormControl("", []),
+    Devis: new FormControl("", []),
+    bl: new FormControl("", []),
+    bc: new FormControl("", []),
+    title: new FormControl("", []),
+    facture: new FormControl("", []),
+    pdfComposant: new FormControl("", []),
   });
 
-  emplacement = [
-    { local: "A0" },
-    { local: "A1" },
-    { local: "A2" },
-    { local: "A3" },
-    { local: "A4" },
-    { local: "A5" },
-  ];
+  emplacement;
 
   tec = [
     { local: "Tech 1" },
@@ -52,15 +54,29 @@ export class AddTicketComponent implements OnInit {
     { value: "Client", label: "Client" },
   ];
   listOfTech: any;
-  constructor(private ticketService: TicketService, private apollo: Apollo) {}
+  listOfClient;
+  listOfCompany;
+  checkedTypeClient: any;
+  constructor(
+    private ticketService: TicketService,
+    private clientService: TableClientService,
+    private apollo: Apollo,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getAllTech();
+    this.getLocation();
+    this.getClientList();
   }
 
   sendTicket() {
     this.addTicket.value.createdBy = localStorage.getItem("username");
     this.ticketService.addTicket(this.addTicket.value);
+  }
+
+  getSelectedTypeClient(data) {
+    this.checkedTypeClient = data;
   }
 
   getAllTech() {
@@ -73,4 +89,59 @@ export class AddTicketComponent implements OnInit {
         this.listOfTech = data.getAllTech;
       });
   }
+
+  getLocation() {
+    this.apollo
+      .query<any>({
+        query: this.ticketService.getLocation(),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "location");
+        this.emplacement = data.getAllLocations;
+      });
+  }
+
+  getClientList() {
+    this.apollo
+      .query<any>({
+        query: this.clientService.getClient(),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "client");
+        this.listOfClient = data.getAllClient;
+      });
+
+    this.apollo
+      .query<any>({
+        query: this.clientService.getCompany(),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "company");
+        this.listOfCompany = data.getAllCompany;
+      });
+  }
+  // selectedFile: File | null = null;
+
+  // onFileSelected(event: any) {
+  //   this.selectedFile = event.target.files[0];
+  // }
+
+  // saveSelectedFile() {
+  //   if (this.selectedFile) {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       const fileArrayBuffer = reader.result as ArrayBuffer;
+  //       const fileBlob = new Blob([fileArrayBuffer], {
+  //         type: this.selectedFile.type,
+  //       });
+  //       console.log("reader", reader);
+  //       console.log("fileArrayBuffer", fileArrayBuffer);
+  //       console.log(typeof fileArrayBuffer, "type de cette variable");
+  //       console.log("fileBlob===> ", fileBlob);
+  //     };
+  //     const BlobPDF = reader.readAsArrayBuffer(this.selectedFile);
+  //     console.log("BlobPDF===> ", BlobPDF);
+  //   }
+
+  // }
 }
