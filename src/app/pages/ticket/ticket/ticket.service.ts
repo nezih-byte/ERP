@@ -86,10 +86,6 @@ export class TicketService {
           bl
           titre
           pdfComposant
-          composant {
-            nameComposant
-            quantity
-          }
         }
       }
     `;
@@ -197,6 +193,19 @@ export class TicketService {
   addLocation(locationName: string) {
     return gql`
       mutation{createLocation(createLocationInput:{locationName:"${locationName}"}) {_id}}
+    `;
+  }
+
+  addComposant(_idTicket: string, nameComposant: string) {
+    console.log(_idTicket, nameComposant, "in service add composant");
+    return gql`
+      mutation {
+        createComposant(
+          createComposantInput: { _idTicket: "${_idTicket}", nameComposant: "${nameComposant}" }
+        ) {
+          nameComposant
+        }
+      }
     `;
   }
 }

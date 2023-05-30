@@ -30,5 +30,6 @@ export class BtnOpenTicketModalComponent implements OnInit {
       this.toClose = data;
       this.cdRef.detectChanges();
     });
+    modal.componentRef.instance.rowData = this.rowData;
   }
 }

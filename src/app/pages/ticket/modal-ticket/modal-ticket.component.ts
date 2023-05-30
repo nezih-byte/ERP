@@ -18,6 +18,7 @@ import { Apollo } from "apollo-angular";
 import * as moment from "moment";
 import { ShareService } from "../../../share-data/share.service";
 import { ROLE } from "../../../roles";
+import { subscribe } from "graphql";
 
 @Component({
   selector: "ngx-modal-ticket",
@@ -25,7 +26,6 @@ import { ROLE } from "../../../roles";
   styleUrls: ["./modal-ticket.component.scss"],
 })
 export class ModalTicketComponent implements OnInit {
-  @Input() rowData: any;
   updateTicket = new FormGroup({
     title: new FormControl("", [Validators.required]),
     designiation: new FormControl("", [Validators.required]),
@@ -59,6 +59,7 @@ export class ModalTicketComponent implements OnInit {
   nomComposant: string;
   vari = "Hello";
   isReparable: any;
+  rowData: any;
 
   constructor(
     private dialogRef: NbDialogRef<ModalTicketComponent>,
@@ -70,6 +71,7 @@ export class ModalTicketComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // console.log(this.rowData, "this is row");
     this.updateTicketToInProgress();
     this.startStopwatch();
     this.isOpenCheck();
@@ -94,6 +96,7 @@ export class ModalTicketComponent implements OnInit {
   }
 
   ajouterComposant() {
+    console.log(this.rowData, "row data in modal");
     let objectComposant: any = { nameComposant: "", quantiteComposant: 0 };
 
     const nomComposantValue = this.myForm.get("nomComposant").value;
@@ -104,6 +107,17 @@ export class ModalTicketComponent implements OnInit {
     this.trees.push(objectComposant);
 
     console.log(this.trees, "ajout trees");
+
+    this.apollo
+      .mutate<any>({
+        mutation: this.ticketService.addComposant(
+          nomComposantValue,
+          this.rowData._id
+        ),
+      })
+      .subscribe(({ data }) => {
+        console.log("component created", data);
+      });
   }
 
   dateFormat(date: string) {
