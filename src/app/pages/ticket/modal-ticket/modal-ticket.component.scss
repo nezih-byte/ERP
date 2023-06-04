@@ -2,3 +2,26 @@
   display: flex;
   justify-content: space-between;
 }
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.radio-btn {
+  display: flex;
+  flex-direction: row;
+}
+
+.composant {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.fix-row {
+  margin: 0px auto;
+}

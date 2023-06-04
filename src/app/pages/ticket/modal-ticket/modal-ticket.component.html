@@ -7,18 +7,17 @@
     <nb-card-body>
       <form [formGroup]="updateTicket">
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-12" *ngIf="rowData.title">
             <label class="label" for="">Titre</label>
-            <input nbInput type="text" fullWidth formControlName="title" />
+            <h6>{{ rowData.title }}</h6>
           </div>
-          <div class="col-lg-12">
+          <div class="col-lg-12" *ngIf="rowData.designiation">
             <label class="label" for="">Description</label>
-            <textarea
-              nbInput
-              type="text"
-              fullWidth
-              formControlName="designiation"
-            ></textarea>
+            <h6>{{ rowData.designiation }}</h6>
+          </div>
+          <div class="col-lg-12" *ngIf="rowData.remarqueManager">
+            <label class="label" for="">Remarque administration</label>
+            <p>{{ rowData.remarqueManager }}</p>
           </div>
           <label class="label" for="">Choisir type de panne</label>
           <nb-select fullWidth>
@@ -34,6 +33,7 @@
             <nb-radio-group
               (ngModelChange)="updateReparableValue($event)"
               formControlName="reparable"
+              class="radio-btn"
             >
               <nb-radio value="oui" checked>Oui</nb-radio>
               <nb-radio value="non">Non</nb-radio>
@@ -44,6 +44,7 @@
             <nb-radio-group
               (ngModelChange)="updatePDRValue($event)"
               formControlName="pdr"
+              class="radio-btn"
             >
               <nb-radio value="oui">Oui</nb-radio>
               <nb-radio value="non">Non</nb-radio>
@@ -51,29 +52,52 @@
           </div>
         </div>
 
-        <form [formGroup]="myForm" class="row" *ngIf="pdrStatus === 'oui'">
-          <div class="col-lg-6">
-            <label class="label" for="">Nom de composant</label>
-            <input
-              nbInput
-              type="text"
-              fullWidth
-              formControlName="nomComposant"
-            />
-          </div>
-          <div class="col-lg-6">
-            <label class="label" for="">Quantité</label>
-            <input nbInput type="text" fullWidth formControlName="quantite" />
-          </div>
+        <form
+          [formGroup]="myForm"
+          *ngIf="pdrStatus === 'oui'"
+          class="composant"
+        >
+          <div class="row">
+            <!-- <div class="col-lg-6">
+              <nb-select
+                formControlName="composantExisted"
+                (ngModelChange)="getSelectedNameComposant($event)"
+              >
+                <nb-option *ngFor="let c of allComposant" [value]="c">
+                  {{ c.nameComposant }}
+                </nb-option>
+              </nb-select>
+            </div> -->
 
-          <button
-            size="small"
-            status="info"
-            nbButton
-            (click)="ajouterComposant()"
-          >
-            Ajouter
-          </button>
+            <div class="col-lg-6">
+              <input
+                nbInput
+                type="text"
+                fullWidth
+                formControlName="nomComposant"
+                placeholder="Nom de composant"
+              />
+            </div>
+            <div class="col-lg-6">
+              <input
+                nbInput
+                type="text"
+                fullWidth
+                formControlName="quantite"
+                placeholder="Quantité"
+              />
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <button
+              size="small"
+              status="info"
+              nbButton
+              (click)="ajouterComposant()"
+            >
+              Ajouter
+            </button>
+          </div>
         </form>
 
         <div class="col-lg-12">
@@ -98,7 +122,7 @@
               nbInput
               fullWidth
               placeholder="Textarea"
-              formControlName="remarque"
+              formControlName="remarqueTech"
             ></textarea>
           </div>
           <div class="col-lg-12">

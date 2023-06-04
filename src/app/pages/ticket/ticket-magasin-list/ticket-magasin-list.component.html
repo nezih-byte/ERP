@@ -16,6 +16,34 @@
           <label for=""></label>
           <input nbInput type="text" />
         </div>
+        <div class="col-lg-12">
+          <nb-card size="medium">
+            <nb-card-header> Some fruits </nb-card-header>
+            <nb-list>
+              <nb-list-item *ngFor="let c of composant" class="fix-list">
+                <div class="row">
+                  <h6>{{ c.name }}: {{ c.value }}</h6>
+                  <div class="col-lg-12">
+                    <input nbInput type="text" placeholder="Prix d'achat" />
+                  </div>
+                  <div class="col-lg-12">
+                    <input nbInput type="text" placeholder="Prix de vente" />
+                  </div>
+                </div>
+                <div class="row">
+                  <button
+                    nbButton
+                    status="info"
+                    size="small"
+                    (click)="updateMagasin(c._id)"
+                  >
+                    Affecter
+                  </button>
+                </div>
+              </nb-list-item>
+            </nb-list>
+          </nb-card>
+        </div>
       </div>
     </form>
   </nb-card-body>

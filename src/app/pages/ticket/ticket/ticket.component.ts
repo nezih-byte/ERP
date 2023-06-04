@@ -11,6 +11,7 @@ import { NbDialogService } from "@nebular/theme";
 import { ModalAddIssueComponent } from "../modal-add-issue/modal-add-issue.component";
 import { AddLocationComponent } from "../add-location/add-location.component";
 import { BtnOpenModalMagasinComponent } from "../btn-open-modal-magasin/btn-open-modal-magasin.component";
+import { ROLE } from "../../../roles";
 @Component({
   selector: "ngx-ticket",
   templateUrl: "./ticket.component.html",
@@ -19,6 +20,7 @@ import { BtnOpenModalMagasinComponent } from "../btn-open-modal-magasin/btn-open
 export class TicketComponent implements OnInit {
   firstForm;
   secondForm;
+  IsBeShowen: boolean = true;
   options = [
     { value: "This is value 1", label: "Option 1" },
     { value: "This is value 2", label: "Option 2" },
@@ -56,32 +58,20 @@ export class TicketComponent implements OnInit {
         title: "ID",
         type: "string",
       },
-      // designiation: {
-      //   title: "designiation",
-      //   type: "string",
-      // },
+      typeClient: {
+        title: "Type",
+        type: "string",
+      },
 
       emplacement: {
         title: "emplacement",
         type: "string",
       },
-      // numero: {
-      //   title: "numero",
-      //   type: "string",
-      // },
-      // remarque: {
-      //   title: "remarque",
-      //   type: "string",
-      // },
+
       reparable: {
         title: "reparable",
         type: "string",
       },
-
-      // pdr: {
-      //   title: "pdr",
-      //   type: "string",
-      // },
 
       status: {
         title: "status",
@@ -95,7 +85,7 @@ export class TicketComponent implements OnInit {
             return '<div class="enCours">' + "En cours" + "</div>";
           }
           if (cell === "FINISHED") {
-            return '<div class="finished">' + "Terminé" + "</div>";
+            return '<div class="finished">' + "Diagnostiqué" + "</div>";
           }
           if (cell === "PCR") {
             return '<div class="pcr">' + "PCR" + "</div>";
@@ -137,7 +127,7 @@ export class TicketComponent implements OnInit {
         renderComponent: BtnReparationComponent,
       },
       openModalMagasin: {
-        title: "Configuration",
+        title: "Remplissage",
         type: "custom",
         renderComponent: BtnOpenModalMagasinComponent,
       },
@@ -159,6 +149,7 @@ export class TicketComponent implements OnInit {
     this.loggedInUser = localStorage.getItem("role");
     this.getAllTicket();
     this.getNotificationSocket();
+    this.toHideColumns();
   }
 
   getAllTicket() {
@@ -191,5 +182,32 @@ export class TicketComponent implements OnInit {
     const currentUser = localStorage.getItem("username");
     let notificationData = this.ticketService.getNotification(currentUser);
     console.log(notificationData, "in component");
+  }
+
+  toHideColumns() {
+    console.log(this.IsBeShowen, "this.loggedInUser");
+    if (
+      this.loggedInUser === ROLE.MANAGER ||
+      this.loggedInUser === ROLE.ADMIN_MANAGER
+    ) {
+      delete this.settings.columns.reparable;
+      delete this.settings.columns.modalReparation;
+      delete this.settings.columns.openModalMagasin;
+      delete this.settings.columns.configTicket;
+    }
+
+    if (
+      this.loggedInUser === ROLE.ADMIN_TECH ||
+      this.loggedInUser === ROLE.TECH
+    ) {
+      delete this.settings.columns.openModalMagasin;
+    }
+
+    if (this.loggedInUser === ROLE.MAGASIN) {
+      delete this.settings.columns.reparable;
+      delete this.settings.columns.modalReparation;
+
+      delete this.settings.columns.configTicket;
+    }
   }
 }

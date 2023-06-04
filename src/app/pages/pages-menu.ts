@@ -1,6 +1,6 @@
 import { NbMenuItem } from "@nebular/theme";
 
-export const MENU_ITEMS: NbMenuItem[] = [
+export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
   {
     title: "Accueil",
     icon: "shopping-cart-outline",
@@ -60,6 +60,183 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: "Add ticket",
         link: "/pages/ticket/add-ticket",
       },
+      {
+        title: "List tickets",
+        link: "/pages/ticket/ticket-list",
+      },
+    ],
+  },
+];
+
+export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
+  {
+    title: "Accueil",
+    icon: "shopping-cart-outline",
+    link: "/pages/dashboardGlobal/dashboardGlobal",
+    home: true,
+  },
+
+  {
+    title: "Features",
+    group: true,
+  },
+  {
+    title: "STAFF",
+    icon: "person-outline",
+    children: [
+      {
+        title: "Liste des clients",
+        link: "/pages/profile/list-profile",
+      },
+    ],
+  },
+  {
+    title: "Client",
+    icon: "person-outline",
+    children: [
+      {
+        title: "Liste des clients",
+        link: "/pages/tableClient/table-user",
+      },
+      {
+        title: "List des société",
+        link: "/pages/tableClient/table-company",
+      },
+    ],
+  },
+
+  {
+    title: "Ticket",
+    icon: "file-text-outline",
+    children: [
+      {
+        title: "List tickets",
+        link: "/pages/ticket/ticket-list",
+      },
+    ],
+  },
+];
+
+export const MENU_ITEMS_MANAGER: NbMenuItem[] = [
+  {
+    title: "Accueil",
+    icon: "shopping-cart-outline",
+    link: "/pages/dashboardGlobal/dashboardGlobal",
+    home: true,
+  },
+
+  {
+    title: "Features",
+    group: true,
+  },
+
+  {
+    title: "Client",
+    icon: "person-outline",
+    children: [
+      {
+        title: "Ajouter client / société",
+        link: "/pages/tableClient/choices",
+      },
+      {
+        title: "Liste des clients",
+        link: "/pages/tableClient/table-user",
+      },
+      {
+        title: "List des société",
+        link: "/pages/tableClient/table-company",
+      },
+    ],
+  },
+
+  {
+    title: "Ticket",
+    icon: "file-text-outline",
+    children: [
+      {
+        title: "Add ticket",
+        link: "/pages/ticket/add-ticket",
+      },
+      {
+        title: "List tickets",
+        link: "/pages/ticket/ticket-list",
+      },
+    ],
+  },
+];
+
+export const MENU_ITEMS_MAGASIN: NbMenuItem[] = [
+  {
+    title: "Accueil",
+    icon: "shopping-cart-outline",
+    link: "/pages/dashboardGlobal/dashboardGlobal",
+    home: true,
+  },
+
+  {
+    title: "Features",
+    group: true,
+  },
+
+  {
+    title: "Client",
+    icon: "person-outline",
+    children: [
+      {
+        title: "Liste des clients",
+        link: "/pages/tableClient/table-user",
+      },
+      {
+        title: "List des société",
+        link: "/pages/tableClient/table-company",
+      },
+    ],
+  },
+
+  {
+    title: "Ticket",
+    icon: "file-text-outline",
+    children: [
+      {
+        title: "List tickets",
+        link: "/pages/ticket/ticket-list",
+      },
+    ],
+  },
+];
+
+export const MENU_ITEMS_TECH: NbMenuItem[] = [
+  {
+    title: "Accueil",
+    icon: "shopping-cart-outline",
+    link: "/pages/dashboardGlobal/dashboardGlobal",
+    home: true,
+  },
+
+  {
+    title: "Features",
+    group: true,
+  },
+
+  {
+    title: "Client",
+    icon: "person-outline",
+    children: [
+      {
+        title: "Liste des clients",
+        link: "/pages/tableClient/table-user",
+      },
+      {
+        title: "List des société",
+        link: "/pages/tableClient/table-company",
+      },
+    ],
+  },
+
+  {
+    title: "Ticket",
+    icon: "file-text-outline",
+    children: [
       {
         title: "List tickets",
         link: "/pages/ticket/ticket-list",

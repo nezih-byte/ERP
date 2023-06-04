@@ -1,5 +1,5 @@
 <nb-card>
-  <nb-card-header>creation de ticket</nb-card-header>
+  <nb-card-header>Création d'une demande d'intervention</nb-card-header>
   <nb-card-body>
     <form [formGroup]="addTicket">
       <div class="row">
@@ -96,26 +96,6 @@
           <button (click)="saveSelectedFile()">Valider</button>
         </div> -->
 
-        <div class="col-lg-12">
-          <label class="label" for="">Devis</label>
-          <input nbInput fullWidth type="text" formControlName="Devis" />
-        </div>
-        <div class="col-lg-12">
-          <label class="label" for="">Bon de livraison</label>
-          <input nbInput fullWidth type="text" formControlName="bl" />
-        </div>
-        <div class="col-lg-12">
-          <label class="label" for="">Facture</label>
-          <input nbInput fullWidth type="text" formControlName="facture" />
-        </div>
-        <div class="col-lg-12">
-          <label class="label" for="">Bon de commande</label>
-          <input nbInput fullWidth type="text" formControlName="bc" />
-        </div>
-        <div class="col-lg-12">
-          <label class="label" for="">PDF composant</label>
-          <input nbInput fullWidth type="text" formControlName="pdfComposant" />
-        </div>
         <div class="col-lg-12">
           <label for="" class="label">Remarque</label>
           <textarea

@@ -35,7 +35,7 @@ export class ModalTicketComponent implements OnInit {
     assignedTo: new FormControl("", [Validators.required]),
     reparable: new FormControl("", [Validators.required]),
     pdr: new FormControl("non", [Validators.required]),
-    remarque: new FormControl("", [Validators.required]),
+    remarqueTech: new FormControl("", [Validators.required]),
     emplacement: new FormControl("", [Validators.required]),
     role: new FormControl("", [Validators.required]),
   });
@@ -60,6 +60,8 @@ export class ModalTicketComponent implements OnInit {
   vari = "Hello";
   isReparable: any;
   rowData: any;
+  title: any;
+  allComposant: any;
 
   constructor(
     private dialogRef: NbDialogRef<ModalTicketComponent>,
@@ -71,7 +73,8 @@ export class ModalTicketComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // console.log(this.rowData, "this is row");
+    this.title = this.rowData.title;
+
     this.updateTicketToInProgress();
     this.startStopwatch();
     this.isOpenCheck();
@@ -97,7 +100,16 @@ export class ModalTicketComponent implements OnInit {
 
   ajouterComposant() {
     console.log(this.rowData, "row data in modal");
-    let objectComposant: any = { nameComposant: "", quantiteComposant: 0 };
+    let objectComposant: any = {
+      _id: "",
+      nameComposant: "",
+      quantiteComposant: 0,
+    };
+
+    /**
+     * Ajouter btn : for adding composant in composant entity
+     * Update btn , for adding composant data in ticket
+     */
 
     const nomComposantValue = this.myForm.get("nomComposant").value;
     const quantiteValue = this.myForm.get("quantite").value;
@@ -105,14 +117,14 @@ export class ModalTicketComponent implements OnInit {
     objectComposant["nameComposant"] = nomComposantValue;
     objectComposant["quantiteComposant"] = +quantiteValue;
     this.trees.push(objectComposant);
-
+    let quantity = parseInt(quantiteValue);
     console.log(this.trees, "ajout trees");
 
     this.apollo
       .mutate<any>({
         mutation: this.ticketService.addComposant(
           nomComposantValue,
-          this.rowData._id
+          parseInt(quantiteValue)
         ),
       })
       .subscribe(({ data }) => {
@@ -156,7 +168,7 @@ export class ModalTicketComponent implements OnInit {
       designiation: this.updateTicket.value.designiation,
       emplacement: this.updateTicket.value.emplacement,
       numero: this.updateTicket.value.numero,
-      remarque: this.updateTicket.value.remarque,
+      remarqueTech: this.updateTicket.value.remarqueTech,
       reparable: this.updateTicket.value.reparable,
       pdr: this.updateTicket.value.pdr,
       lapTime: this.lapTime,
@@ -178,6 +190,16 @@ export class ModalTicketComponent implements OnInit {
     this.updateStatusToFinish();
 
     this.dialogRef.close(true);
+  }
+
+  getAllComposant() {
+    this.apollo
+      .query<any>({
+        query: this.ticketService.getAllComposant(),
+      })
+      .subscribe(({ data }) => {
+        this.allComposant = data.getAllComposant;
+      });
   }
 
   getAllIssue() {

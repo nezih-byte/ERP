@@ -4,6 +4,7 @@ import { Socket, io } from "socket.io-client";
 import { Ticket } from "../ticket";
 import { NbToastrService } from "@nebular/theme";
 import { ROLE } from "../../../roles";
+import { URL } from "../../../URLs";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +12,7 @@ import { ROLE } from "../../../roles";
 export class TicketService {
   socket: any;
   constructor(private toastr: NbToastrService) {
-    this.socket = io("http://localhost:3000", {
+    this.socket = io(URL.SOCKET, {
       transports: ["websocket", "polling"],
     });
   }
@@ -37,9 +38,11 @@ export class TicketService {
   getNotification(currentUser: string) {
     let notifcation: any;
     this.socket.on("ticket", (ticket: Ticket) => {
-      if (ticket.assignedTo === currentUser) {
+      if (ticket.role === currentUser) {
         console.log("ticket recieved", ticket);
-        this.toastr.success(`You've got new message ${ticket}`);
+        this.toastr.success(`${ticket._id} à faire`, "Nouveau Ticket", {
+          duration: 0,
+        });
         notifcation = ticket;
       }
     });
@@ -51,9 +54,9 @@ export class TicketService {
       this.socket.on("magasin", (ticket: Ticket) => {
         console.log(ticket, "ticket magasin getting", currentRole, "role");
         if (ticket.role === currentRole) {
-          this.toastr.success(
-            `You've got new message "MAGASIN" ${ticket.designiation} from tech `
-          );
+          this.toastr.success(`${ticket._id} à faire`, "Nouveau Ticket", {
+            duration: 0,
+          });
         }
       });
     }
@@ -68,7 +71,8 @@ export class TicketService {
           designiation
           emplacement
           numero
-          remarque
+          remarqueTech
+          remarqueManager
           reparable
           pdr
           techNameSug
@@ -104,9 +108,11 @@ export class TicketService {
   updateTicketByTech(updateTicket) {
     const composantInputs = updateTicket.composant
       .map((el) => {
-        return `{ nameComposant: "${el.nameComposant}", quantity: ${el.quantiteComposant} }`;
+        return `{nameComposant: "${el.nameComposant}", quantity: ${el.quantiteComposant} }`;
       })
       .join(", ");
+
+    console.log(composantInputs, "from service composant");
 
     return gql`
     mutation {
@@ -116,17 +122,17 @@ export class TicketService {
           designiation: "${updateTicket.designiation}",
           emplacement: "${updateTicket.emplacement}",
           numero: "${updateTicket.numero}",
-          remarque: "${updateTicket.remarque}",
+          remarqueTech: "${updateTicket.remarqueTech}",
           reparable: "${updateTicket.reparable}",
           pdr: "${updateTicket.pdr}",
           diagnosticTimeByTech: "${updateTicket.lapTime}",
-          composant: [${composantInputs}]
+          composants: [${composantInputs}]
+       
         }
       )
     }
   `;
   }
-
   updateTicketToInProgress(_id: string) {
     return gql`
       mutation {
@@ -196,13 +202,24 @@ export class TicketService {
     `;
   }
 
-  addComposant(_idTicket: string, nameComposant: string) {
-    console.log(_idTicket, nameComposant, "in service add composant");
+  addComposant(nameComposant: string, quantity: number) {
+    console.log(nameComposant, "in service add composant");
     return gql`
       mutation {
         createComposant(
-          createComposantInput: { _idTicket: "${_idTicket}", nameComposant: "${nameComposant}" }
+          createComposantInput: {  nameComposant: "${nameComposant}" , qunatity:${quantity}}
         ) {
+          nameComposant
+        }
+      }
+    `;
+  }
+
+  getAllComposant() {
+    return gql`
+      {
+        getAllComposant {
+          _id
           nameComposant
         }
       }

@@ -22,12 +22,7 @@ export class AddTicketComponent implements OnInit {
     affectedToCompany: new FormControl("", []),
     affectedToClient: new FormControl("", []),
     remarque: new FormControl("", []),
-    Devis: new FormControl("", []),
-    bl: new FormControl("", []),
-    bc: new FormControl("", []),
     title: new FormControl("", []),
-    facture: new FormControl("", []),
-    pdfComposant: new FormControl("", []),
   });
 
   emplacement;

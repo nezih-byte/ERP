@@ -6,7 +6,9 @@ import {
   NbBadgeModule,
   NbButtonModule,
   NbCardModule,
+  NbInfiniteListDirective,
   NbInputModule,
+  NbListModule,
   NbRadioModule,
   NbSelectModule,
   NbStepperModule,
@@ -22,8 +24,8 @@ import { ModalReparationComponent } from "./modal-reparation/modal-reparation.co
 import { TicketMagasinListComponent } from "./ticket-magasin-list/ticket-magasin-list.component";
 import { TicketMagasinModalComponent } from "./ticket-magasin-modal/ticket-magasin-modal.component";
 import { ModalAddIssueComponent } from "./modal-add-issue/modal-add-issue.component";
-import { AddLocationComponent } from './add-location/add-location.component';
-import { BtnOpenModalMagasinComponent } from './btn-open-modal-magasin/btn-open-modal-magasin.component';
+import { AddLocationComponent } from "./add-location/add-location.component";
+import { BtnOpenModalMagasinComponent } from "./btn-open-modal-magasin/btn-open-modal-magasin.component";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,6 @@ import { BtnOpenModalMagasinComponent } from './btn-open-modal-magasin/btn-open-
     TicketRoutingModule,
     NbCardModule,
     NbInputModule,
-
     ReactiveFormsModule,
     NbRadioModule,
     NbButtonModule,
@@ -53,6 +54,7 @@ import { BtnOpenModalMagasinComponent } from './btn-open-modal-magasin/btn-open-
     FormsModule,
     NbTagModule,
     NbBadgeModule,
+    NbListModule,
   ],
 })
 export class TicketModule {}
