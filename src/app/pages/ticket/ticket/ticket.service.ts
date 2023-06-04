@@ -85,11 +85,14 @@ export class TicketService {
           priority
           Devis
           facture
-          isOpenByTech
           bc
           bl
           titre
           pdfComposant
+          composants {
+            nameComposant
+            quantity
+          }
         }
       }
     `;
@@ -222,6 +225,30 @@ export class TicketService {
           _id
           nameComposant
         }
+      }
+    `;
+  }
+
+  updateMagasin(
+    _id: string,
+    nameComposant: string,
+    sellPrice: string,
+    purchasePrice: string,
+    statusComposant: string,
+    comingDate: string
+  ) {
+    return gql`
+      mutation {
+        magasinUpdate(
+          magasinUpdateData: {
+            _id: "${_id}"
+            nameComposant: "${nameComposant}"
+            sellPrice: "${sellPrice}"
+            purchasePrice: "${purchasePrice}"
+            statusComposant: "${statusComposant}"
+            comingDate: "${comingDate}"
+          }
+        )
       }
     `;
   }

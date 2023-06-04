@@ -120,16 +120,16 @@ export class ModalTicketComponent implements OnInit {
     let quantity = parseInt(quantiteValue);
     console.log(this.trees, "ajout trees");
 
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.addComposant(
-          nomComposantValue,
-          parseInt(quantiteValue)
-        ),
-      })
-      .subscribe(({ data }) => {
-        console.log("component created", data);
-      });
+    // this.apollo
+    //   .mutate<any>({
+    //     mutation: this.ticketService.addComposant(
+    //       nomComposantValue,
+    //       parseInt(quantiteValue)
+    //     ),
+    //   })
+    //   .subscribe(({ data }) => {
+    //     console.log("component created", data);
+    //   });
   }
 
   dateFormat(date: string) {

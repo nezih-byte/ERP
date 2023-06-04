@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { TicketService } from "../ticket/ticket.service";
+import { Apollo } from "apollo-angular";
 
 @Component({
   selector: "ngx-ticket-magasin-list",
@@ -8,26 +10,51 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class TicketMagasinListComponent implements OnInit {
   dataTicketSelected;
-  composant = [
-    { _id: 0, name: "Résistance", value: 10 },
-    { _id: 1, name: "Résistance", value: 10 },
-    { _id: 2, name: "Résistance", value: 10 },
-    { _id: 3, name: "Résistance", value: 10 },
-    { _id: 4, name: "Résistance", value: 10 },
-    { _id: 5, name: "Résistance", value: 10 },
-    { _id: 6, name: "Résistance", value: 10 },
-  ];
+  composant = [];
   magasinField = new FormGroup({
     etat: new FormControl(null, [Validators.required]),
+    purchasePrice: new FormControl(null, [Validators.required]),
+    sellPrice: new FormControl(null, [Validators.required]),
+    datePicker: new FormControl(null, [Validators.required]),
   });
   optionMagasin = ["Interne", "Internet interne", "Externe"];
-  constructor() {}
+  constructor(private apollo: Apollo, private ticketService: TicketService) {}
 
   ngOnInit(): void {
     console.log(this.dataTicketSelected, "row selected");
+    this.getListOfComposant();
+  }
+  /**
+   *
+   * @param _id ticket
+   * @param nameComposant in array og composant existed in ticket
+   * @param sellPrice feeds
+   * @param purchasePrice feeds
+   *
+   */
+
+  updateMagasin(nameComposant: string) {
+    this.apollo
+      .mutate<any>({
+        mutation: this.ticketService.updateMagasin(
+          this.dataTicketSelected._id,
+          nameComposant,
+          this.magasinField.value.sellPrice,
+          this.magasinField.value.purchasePrice,
+          this.magasinField.value.etat,
+          this.magasinField.value.datePicker
+        ),
+      })
+      .subscribe(({ data }) => {
+        console.log(data, "updated");
+        if (data) {
+          this.magasinField.reset();
+        }
+      });
   }
 
-  updateMagasin(_id) {
-    console.log(_id, "hello _id");
+  getListOfComposant() {
+    this.composant = this.dataTicketSelected.composants;
+    console.log(this.composant, "List of composant");
   }
 }
