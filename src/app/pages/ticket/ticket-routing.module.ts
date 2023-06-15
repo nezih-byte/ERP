@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { TicketComponent } from "./ticket/ticket.component";
 import { AddTicketComponent } from "./add-ticket/add-ticket.component";
+import { TicketComponentTraiter } from "./list-ticket-finie/list-ticket-finie.component";
 
 const routes: Routes = [
   {
@@ -12,47 +13,10 @@ const routes: Routes = [
     path: "ticket-list",
     component: TicketComponent,
   },
-  //   {
-  //     path: "",
-  //     component: LayoutComponent,
-  //     children: [
-  //       {
-  //         path: "stepper",
-  //         component: StepperComponent,
-  //       },
-  //       {
-  //         path: "list",
-  //         component: ListComponent,
-  //       },
-  //       {
-  //         path: "infinite-list",
-  //         component: InfiniteListComponent,
-  //       },
-  //       {
-  //         path: "accordion",
-  //         component: AccordionComponent,
-  //       },
-  //       {
-  //         path: "tabs",
-  //         component: TabsComponent,
-  //         children: [
-  //           {
-  //             path: "",
-  //             redirectTo: "tab1",
-  //             pathMatch: "full",
-  //           },
-  //           {
-  //             path: "tab1",
-  //             component: Tab1Component,
-  //           },
-  //           {
-  //             path: "tab2",
-  //             component: Tab2Component,
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //   },
+  {
+    path: "ticket-list-traiter",
+    component: TicketComponentTraiter,
+  },
 ];
 
 @NgModule({

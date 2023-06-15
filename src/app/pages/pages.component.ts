@@ -24,7 +24,7 @@ import {
   `,
 })
 export class PagesComponent implements OnInit {
-  menu;
+  menu = MENU_ITEMS_ADMIN_MANAGER;
   constructor(
     private router: Router,
     private apollo: Apollo,

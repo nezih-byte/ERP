@@ -5,6 +5,7 @@ import { Apollo } from "apollo-angular";
 import { log } from "console";
 import { TableClientService } from "../../table-cliet/table-client.service";
 import { LocalDataSource } from "ng2-smart-table";
+import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-add-ticket",
@@ -56,7 +57,8 @@ export class AddTicketComponent implements OnInit {
     private ticketService: TicketService,
     private clientService: TableClientService,
     private apollo: Apollo,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private nbToastr: NbToastrService
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +70,8 @@ export class AddTicketComponent implements OnInit {
   sendTicket() {
     this.addTicket.value.createdBy = localStorage.getItem("username");
     this.ticketService.addTicket(this.addTicket.value);
+    this.nbToastr.success("Ticket a été ajouté avec succès", "Ticket ajouté");
+    this.addTicket.reset();
   }
 
   getSelectedTypeClient(data) {

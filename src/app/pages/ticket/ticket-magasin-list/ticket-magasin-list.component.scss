@@ -4,3 +4,17 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.justify-inputs {
+  display: flex;
+  justify-content: center;
+}
+
+.fix-items {
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.inputs {
+  margin-bottom: 1rem;
+}

@@ -12,13 +12,11 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { NbDialogRef, NbTagComponent } from "@nebular/theme";
+import { NbDialogRef, NbTagComponent, NbToastrService } from "@nebular/theme";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
 import * as moment from "moment";
 import { ShareService } from "../../../share-data/share.service";
-import { ROLE } from "../../../roles";
-import { subscribe } from "graphql";
 
 @Component({
   selector: "ngx-modal-ticket",
@@ -69,7 +67,7 @@ export class ModalTicketComponent implements OnInit {
     private apollo: Apollo,
     private share: ShareService,
     private cdr: ChangeDetectorRef,
-    private formBuilder: FormBuilder
+    private toastr: NbToastrService
   ) {}
 
   ngOnInit(): void {
@@ -119,17 +117,6 @@ export class ModalTicketComponent implements OnInit {
     this.trees.push(objectComposant);
     let quantity = parseInt(quantiteValue);
     console.log(this.trees, "ajout trees");
-
-    // this.apollo
-    //   .mutate<any>({
-    //     mutation: this.ticketService.addComposant(
-    //       nomComposantValue,
-    //       parseInt(quantiteValue)
-    //     ),
-    //   })
-    //   .subscribe(({ data }) => {
-    //     console.log("component created", data);
-    //   });
   }
 
   dateFormat(date: string) {
@@ -187,7 +174,19 @@ export class ModalTicketComponent implements OnInit {
         this.isModalOpened = data;
         this.ticketService.sendToMagasin(dataToUpdate);
       });
-    this.updateStatusToFinish();
+
+    if (
+      this.updateTicket.value.reparable === "non" ||
+      this.updateTicket.value.pdr === "non"
+    ) {
+      this.apollo
+        .mutate<any>({
+          mutation: this.ticketService.toAdminTech(dataToUpdate._id),
+        })
+        .subscribe(({ data }) => {
+          console.log(data, "update");
+        });
+    }
 
     this.dialogRef.close(true);
   }
@@ -212,16 +211,6 @@ export class ModalTicketComponent implements OnInit {
       });
   }
 
-  startStopwatch() {
-    if (!this.isRunning) {
-      this.isRunning = true;
-      this.startTime = Date.now();
-      this.updateTimer();
-    } else {
-      this.isRunning = false;
-    }
-  }
-
   updateTicketToInProgress() {
     this.apollo
       .mutate<any>({
@@ -232,14 +221,14 @@ export class ModalTicketComponent implements OnInit {
       });
   }
 
-  updateStatusToFinish() {
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.updateStatusToFinish(this.ticketId),
-      })
-      .subscribe(({ data }) => {
-        console.log(data, "ticket opened");
-      });
+  startStopwatch() {
+    if (!this.isRunning) {
+      this.isRunning = true;
+      this.startTime = Date.now();
+      this.updateTimer();
+    } else {
+      this.isRunning = false;
+    }
   }
 
   updateTimer() {

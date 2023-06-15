@@ -12,6 +12,8 @@ import { ModalAddIssueComponent } from "../modal-add-issue/modal-add-issue.compo
 import { AddLocationComponent } from "../add-location/add-location.component";
 import { BtnOpenModalMagasinComponent } from "../btn-open-modal-magasin/btn-open-modal-magasin.component";
 import { ROLE } from "../../../roles";
+import { BtnAdminsComponent } from "../btn-admins/btn-admins.component";
+import { ToggleActivateComponent } from "../toggle-activate/toggle-activate.component";
 @Component({
   selector: "ngx-ticket",
   templateUrl: "./ticket.component.html",
@@ -131,6 +133,16 @@ export class TicketComponent implements OnInit {
         type: "custom",
         renderComponent: BtnOpenModalMagasinComponent,
       },
+      affectationPrice: {
+        title: "Affectation les prix",
+        type: "custom",
+        renderComponent: BtnAdminsComponent,
+      },
+      reactivateDiagnostique: {
+        title: "Reouverture diagnostique",
+        type: "custom",
+        renderComponent: ToggleActivateComponent,
+      },
     },
   };
 
@@ -208,6 +220,15 @@ export class TicketComponent implements OnInit {
       delete this.settings.columns.modalReparation;
 
       delete this.settings.columns.configTicket;
+    }
+
+    if (
+      this.loggedInUser === ROLE.MAGASIN ||
+      this.loggedInUser === ROLE.TECH ||
+      this.loggedInUser === ROLE.MANAGER
+    ) {
+      delete this.settings.columns.affectationPrice;
+      delete this.settings.columns.reactivateDiagnostique;
     }
   }
 }

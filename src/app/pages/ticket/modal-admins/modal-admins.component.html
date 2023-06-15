@@ -1,0 +1,61 @@
+<nb-card>
+  <nb-card-header>Affectation les prix</nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-lg-4">
+        Temps diagnostique:
+        <strong> {{ rowData.diagnosticTimeByTech }} </strong>
+      </div>
+      <div class="col-lg-4">
+        Téchnicien: <strong> {{ rowData.assignedTo }} </strong>
+      </div>
+      <div class="col-lg-4">Créé le : <strong>06/06/2023</strong></div>
+      <div class="col-lg-4">
+        Client:
+        <strong>
+          {{
+            rowData.affectedToCompany
+              ? rowData.affectedToCompany
+              : rowData.affectedToClient
+          }}</strong
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        Titre de ticket: <strong> {{ rowData.title }} </strong>
+      </div>
+      <div class="col-lg-12">
+        Remarque manager : <strong> {{ rowData.remarqueManager }} </strong>
+      </div>
+      <div class="col-lg-12">
+        Remarque technicien: <strong> {{ rowData.remarqueTech }} </strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        Réparable: <strong> {{ rowData.reparable }} </strong>
+      </div>
+      <div class="col-lg-4" *ngFor="let c of rowData.composants">
+        Liste des composant:
+        <nb-card>
+          Nom de composant: <strong>{{ c.nameComposant }}</strong> <br />
+          Quantité: <strong>{{ c.quantity }}</strong> <br />
+          Status: <strong>{{ c.statusComposant }}</strong> <br />
+          Prix de vente: <strong>{{ c.sellPrice }}</strong> <br />
+          Prix d'achat: <strong>{{ c.purchasePrice }}</strong> <br />
+          Date d'arrivage: <strong>{{ c.comingDate }}</strong> <br />
+        </nb-card>
+      </div>
+    </div>
+    <form class="row" [formGroup]="AdminTechForm" (ngSubmit)="submitTicket()">
+      <div class="col-lg-12">
+        <label class="label">Prix final</label>
+        <input nbInput formControlName="finalPrice" />
+      </div>
+      <div class="col-lg-6">
+        <button nbButton status="success" type="submit">Terminer</button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

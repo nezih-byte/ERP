@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { TicketService } from "../ticket/ticket.service";
 import { Apollo } from "apollo-angular";
+import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-ticket-magasin-list",
@@ -18,7 +19,11 @@ export class TicketMagasinListComponent implements OnInit {
     datePicker: new FormControl(null, [Validators.required]),
   });
   optionMagasin = ["Interne", "Internet interne", "Externe"];
-  constructor(private apollo: Apollo, private ticketService: TicketService) {}
+  constructor(
+    private apollo: Apollo,
+    private ticketService: TicketService,
+    private toastr: NbToastrService
+  ) {}
 
   ngOnInit(): void {
     console.log(this.dataTicketSelected, "row selected");
@@ -34,6 +39,7 @@ export class TicketMagasinListComponent implements OnInit {
    */
 
   updateMagasin(nameComposant: string) {
+    console.log(nameComposant, "name composant");
     this.apollo
       .mutate<any>({
         mutation: this.ticketService.updateMagasin(
@@ -47,7 +53,15 @@ export class TicketMagasinListComponent implements OnInit {
       })
       .subscribe(({ data }) => {
         console.log(data, "updated");
+        console.log(this.composant, "compsant");
         if (data) {
+          const updatedComposants = this.composant.findIndex(
+            (composant) => composant.nameComposant !== nameComposant
+          );
+          this.composant.splice(updatedComposants - 1, 1);
+
+          console.log(updatedComposants, "index");
+          this.toastr.success("", "Composant affecté");
           this.magasinField.reset();
         }
       });
@@ -56,5 +70,6 @@ export class TicketMagasinListComponent implements OnInit {
   getListOfComposant() {
     this.composant = this.dataTicketSelected.composants;
     console.log(this.composant, "List of composant");
+    this.composant.reverse();
   }
 }

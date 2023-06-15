@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { NbDialogService } from "@nebular/theme";
 import { ModalReparationComponent } from "../modal-reparation/modal-reparation.component";
 
@@ -8,6 +8,7 @@ import { ModalReparationComponent } from "../modal-reparation/modal-reparation.c
   styleUrls: ["./btn-reparation.component.scss"],
 })
 export class BtnReparationComponent implements OnInit {
+  @Input() rowData;
   constructor(private dialogService: NbDialogService) {}
 
   ngOnInit(): void {}
@@ -16,6 +17,6 @@ export class BtnReparationComponent implements OnInit {
       closeOnBackdropClick: false,
       closeOnEsc: false,
     });
-    // modal.componentRef.instance.ticketId = this.rowData._id;
+    modal.componentRef.instance.rowData = this.rowData;
   }
 }

@@ -1,8 +1,12 @@
-<nb-card size="giant">
+<nb-card>
   <nb-card>
-    <nb-card-header>Réapration to add title ticket // timer </nb-card-header>
+    <nb-card-header
+      >Réapration to add title ticket {{ minutes }}:{{ seconds }}:{{
+        milliseconds
+      }}
+    </nb-card-header>
     <nb-card-body>
-      <form [formGroup]="updateTicket">
+      <form [formGroup]="formReaparationTech">
         <div class="row">
           <div class="col-lg-12">
             <label class="label" for="">Description réel</label>
@@ -10,7 +14,7 @@
               nbInput
               type="text"
               fullWidth
-              formControlName="designiation"
+              formControlName="remarqueTech"
             ></textarea>
           </div>
         </div>
@@ -21,7 +25,7 @@
               nbButton
               status="success"
               fullWidth
-              (click)="updateTicketConfirm()"
+              (click)="submitTechRemarque()"
             >
               Ajouter
             </button>

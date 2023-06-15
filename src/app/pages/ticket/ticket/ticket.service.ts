@@ -5,6 +5,7 @@ import { Ticket } from "../ticket";
 import { NbToastrService } from "@nebular/theme";
 import { ROLE } from "../../../roles";
 import { URL } from "../../../URLs";
+import { id } from "@swimlane/ngx-charts";
 
 @Injectable({
   providedIn: "root",
@@ -76,11 +77,16 @@ export class TicketService {
           reparable
           pdr
           techNameSug
+          isReparable
           typeClient
           createdBy
+          assignedTo
+          affectedToCompany
+          affectedToClient
           createdAt
           updatedAt
           status
+          magasinDone
           diagnosticTimeByTech
           priority
           Devis
@@ -88,10 +94,16 @@ export class TicketService {
           bc
           bl
           titre
+          isOpenByTech
           pdfComposant
           composants {
             nameComposant
             quantity
+            purchasePrice
+            sellPrice
+            statusComposant
+            comingDate
+            isAffected
           }
         }
       }
@@ -249,6 +261,159 @@ export class TicketService {
             comingDate: "${comingDate}"
           }
         )
+      }
+    `;
+  }
+
+  getListForAdmins() {
+    return gql`
+      {
+        getTicketMagasinFinie {
+          _id
+          title
+          designiation
+          emplacement
+          numero
+          remarqueTech
+          reparable
+          pdr
+          finalPrice
+          techNameSug
+          typeClient
+          createdBy
+          createdAt
+          updatedAt
+          status
+          diagnosticTimeByTech
+          priority
+          Devis
+          facture
+          bc
+          bl
+          titre
+          pdfComposant
+          composants {
+            nameComposant
+            quantity
+            purchasePrice
+            sellPrice
+            statusComposant
+            comingDate
+          }
+        }
+      }
+    `;
+  }
+
+  affectationFinalPrice(_id: string, finalPrice: string) {
+    return gql`
+      mutation {
+        affectationFinalPrice(_id: "${_id}", finalPrice: "${finalPrice}")
+      }
+    `;
+  }
+
+  updateTicketManager(
+    _id: string,
+    remise: string,
+    statusFinal: boolean,
+    bc: any,
+    bl: string,
+    facture: string,
+    devis: string
+  ) {
+    return gql`
+      mutation {
+        updateTicketManager(
+          updateTicketManager: {
+            _id:"${_id}"
+            remise:"${remise}"
+            statusFinal:"${statusFinal}"
+            bc:"${bc}"
+            bl:"${bl}"
+            facture:"${facture}"
+            devis:"${devis}"
+          }
+        )
+      }
+    `;
+  }
+
+  getTicketFinished() {
+    return gql`
+      {
+        getFinishedTicket {
+          _id
+          title
+          designiation
+          emplacement
+          numero
+          remarqueTech
+          reparable
+          pdr
+          finalPrice
+          techNameSug
+          typeClient
+          createdBy
+          createdAt
+          updatedAt
+          status
+          finalStatusTicket
+          diagnosticTimeByTech
+          priority
+          Devis
+          IsFinishedAdmins
+          facture
+          bc
+          bl
+          titre
+          pdfComposant
+          composants {
+            nameComposant
+            quantity
+            purchasePrice
+            sellPrice
+            statusComposant
+            comingDate
+          }
+        }
+      }
+    `;
+  }
+
+  reopenDiag(_id: string) {
+    return gql`
+      mutation {
+        reopenDiagnostique(_id: "${_id}")
+      }
+    `;
+  }
+
+  updateRemarqueReparation(
+    _id: string,
+    remarqueTech: string,
+    reparationTimeByTech: string
+  ) {
+    return gql`
+      mutation {
+        updateRemarqueTechReparation(_id: "${_id}", remarqueTech: "${remarqueTech}" , reparationTimeByTech: "${reparationTimeByTech}")
+      }
+    `;
+  }
+
+  isReturnTicket(_id: string, status: boolean) {
+    console.log(_id, status, "in service return");
+    return gql`
+      mutation {
+        isReturnTicket(_id: "${_id}", stauts: ${status})
+      }
+    `;
+  }
+
+  toAdminTech(_id: string) {
+    return gql`
+      mutation {
+        toAdminTech(_id: "${_id}")
       }
     `;
   }

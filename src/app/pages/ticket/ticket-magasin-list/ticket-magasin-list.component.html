@@ -4,50 +4,51 @@
     <form [formGroup]="magasinField">
       <div class="row">
         <div class="col-lg-12">
-          <label class="label" for="">Choisir état</label>
-          <nb-select fullWidth formControlName="etat">
-            <nb-option *ngFor="let e of optionMagasin" [value]="e">
-              {{ e }}
-            </nb-option>
-          </nb-select>
-        </div>
-
-        <div class="col-lg-12">
           <nb-card size="medium">
-            <nb-card-header> Some fruits </nb-card-header>
+            <nb-card-header> Liste des composants </nb-card-header>
             <nb-list>
-              <nb-list-item *ngFor="let c of composant" class="fix-list">
-                <div class="row">
-                  <h6>
-                    Nom de composant:{{ c.nameComposant }}, Quantité
-                    {{ c.quantity }}
-                  </h6>
-                  <div class="col-lg-12">
-                    <input
-                      nbInput
-                      type="text"
-                      placeholder="Prix d'achat"
-                      formControlName="purchasePrice"
-                    />
-                  </div>
-                  <div class="col-lg-12">
-                    <input
-                      nbInput
-                      type="text"
-                      placeholder="Prix de vente"
-                      formControlName="sellPrice"
-                    />
-                  </div>
-                  <div class="col-lg-12">
-                    <input
-                      nbInput
-                      [nbDatepicker]="datepicker"
-                      placeholder="Date"
-                      formControlName="datePicker"
-                    />
-                  </div>
-                </div>
-                <div class="row">
+              <!--  ngIf="!c.isAffected" -->
+              <nb-list-item
+                *ngFor="let c of composant"
+                class="fix-list justify-inputs"
+              >
+                <div class="row fix-items" *ngIf="!c.isAffected">
+                  <p>
+                    Nom de composant:
+                    <strong>{{ c.nameComposant }}</strong> Quantité:
+                    <strong>{{ c.quantity }}</strong>
+                  </p>
+                  <input
+                    nbInput
+                    type="text"
+                    placeholder="Prix d'achat"
+                    formControlName="purchasePrice"
+                    class="inputs"
+                  />
+                  <input
+                    nbInput
+                    type="text"
+                    placeholder="Prix de vente"
+                    formControlName="sellPrice"
+                    class="inputs"
+                  />
+                  <nb-select
+                    formControlName="etat"
+                    placeholder="Choisir état"
+                    class="inputs"
+                  >
+                    <nb-option *ngFor="let e of optionMagasin" [value]="e">
+                      {{ e }}
+                    </nb-option>
+                  </nb-select>
+                  <input
+                    nbInput
+                    placeholder="Pick Date"
+                    [nbDatepicker]="dateTimePicker"
+                    class="inputs"
+                  />
+                  <nb-datepicker #dateTimePicker></nb-datepicker>
+
                   <button
                     nbButton
                     status="info"

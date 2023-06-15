@@ -1,1 +1,8 @@
-<button nbButton status="primary" (click)="openModal()">Réparation</button>
+<button
+  nbButton
+  status="primary"
+  (click)="openModal()"
+  [disabled]="!rowData.isReparable"
+>
+  Réparation
+</button>

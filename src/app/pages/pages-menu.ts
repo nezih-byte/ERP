@@ -64,6 +64,10 @@ export const MENU_ITEMS_ADMIN_MANAGER: NbMenuItem[] = [
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
       },
+      {
+        title: "Ticket consulté",
+        link: "/pages/ticket/ticket-list-traiter",
+      },
     ],
   },
 ];
@@ -113,6 +117,10 @@ export const MENU_ITEMS_ADMIN_TECH: NbMenuItem[] = [
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
       },
+      {
+        title: "Ticket consulté",
+        link: "/pages/ticket/ticket-list-traiter",
+      },
     ],
   },
 ];
@@ -161,6 +169,10 @@ export const MENU_ITEMS_MANAGER: NbMenuItem[] = [
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
       },
+      {
+        title: "Ticket consulté",
+        link: "/pages/ticket/ticket-list-traiter",
+      },
     ],
   },
 ];
@@ -201,6 +213,10 @@ export const MENU_ITEMS_MAGASIN: NbMenuItem[] = [
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
       },
+      {
+        title: "Ticket consulté",
+        link: "/pages/ticket/ticket-list-traiter",
+      },
     ],
   },
 ];
@@ -240,6 +256,10 @@ export const MENU_ITEMS_TECH: NbMenuItem[] = [
       {
         title: "List tickets",
         link: "/pages/ticket/ticket-list",
+      },
+      {
+        title: "Ticket consulté",
+        link: "/pages/ticket/ticket-list-traiter",
       },
     ],
   },
