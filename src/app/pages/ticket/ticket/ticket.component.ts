@@ -33,12 +33,6 @@ export class TicketComponent implements OnInit {
       add: false,
       edit: false,
       delete: false,
-      custom: [
-        {
-          name: "passValue",
-          title: `<i class="nb-compose" title="Affecte des TPEs"></i>`,
-        },
-      ],
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -191,9 +185,9 @@ export class TicketComponent implements OnInit {
   }
 
   getNotificationSocket() {
-    const currentUser = localStorage.getItem("username");
-    let notificationData = this.ticketService.getNotification(currentUser);
-    console.log(notificationData, "in component");
+    // const currentUser = localStorage.getItem("username");
+    // let notificationData = this.ticketService.getNotification(currentUser);
+    // console.log(notificationData, "in component");
   }
 
   toHideColumns() {

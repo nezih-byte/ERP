@@ -2,7 +2,10 @@
   display: flex;
   justify-content: space-between;
 }
-
+.Scroll {
+  max-height: 300px;
+  overflow-y: auto;
+}
 .title {
   display: flex;
   justify-content: center;

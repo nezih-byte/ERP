@@ -1,0 +1,37 @@
+.scroll-container {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.space-between-elements {
+  display: flex;
+  justify-content: space-between;
+}
+.space-between-elements-header {
+  display: flex;
+  justify-content: space-around;
+}
+
+.Rep {
+  display: flex;
+  justify-content: space-between;
+}
+
+.green-icon {
+  color: green;
+}
+.red-icon {
+  color: red;
+}
+.Titre {
+  display: flex;
+  justify-content: center;
+}
+.justify-items {
+  display: flex;
+  justify-content: space-between;
+}
+.final-price {
+  display: flex;
+  align-items: baseline;
+}

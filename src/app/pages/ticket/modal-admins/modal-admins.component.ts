@@ -40,4 +40,14 @@ export class ModalAdminsComponent implements OnInit {
         }
       });
   }
+
+  totalPrixTotale: number = 0;
+
+  calculateTotalPrixTotale(): number {
+    let totalPrixTotale = 0;
+    for (let c of this.rowData.composants) {
+      totalPrixTotale += c.quantity * c.sellPrice;
+    }
+    return totalPrixTotale;
+  }
 }

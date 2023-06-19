@@ -1,61 +1,118 @@
 <nb-card>
-  <nb-card-header>Affectation les prix</nb-card-header>
-  <nb-card-body>
-    <div class="row">
-      <div class="col-lg-4">
-        Temps diagnostique:
-        <strong> {{ rowData.diagnosticTimeByTech }} </strong>
-      </div>
-      <div class="col-lg-4">
-        Téchnicien: <strong> {{ rowData.assignedTo }} </strong>
-      </div>
-      <div class="col-lg-4">Créé le : <strong>06/06/2023</strong></div>
-      <div class="col-lg-4">
-        Client:
-        <strong>
-          {{
-            rowData.affectedToCompany
-              ? rowData.affectedToCompany
-              : rowData.affectedToClient
-          }}</strong
+  <nb-card-header class="space-between-elements-header">
+    <div class="col-lg-12 Rep">
+      <div>
+        <span *ngIf="rowData.reparable === 'oui'">
+          <nb-icon icon="done-all-outline" class="green-icon"></nb-icon>
+        </span>
+        <span *ngIf="rowData.reparable !== 'oui'">
+          <nb-icon icon="alert-circle-outline" class="red-icon"></nb-icon>
+        </span>
+        <span> Réparable:</span>
+        <span
+          ><strong>{{ rowData.reparable }}</strong></span
         >
       </div>
+      <div class="col-lg-4 justify-items">
+        <div>
+          <span> Client:</span
+          ><span>
+            <strong>
+              {{
+                rowData.affectedToCompany
+                  ? rowData.affectedToCompany
+                  : rowData.affectedToClient
+              }}</strong
+            ></span
+          >
+        </div>
+        <div>
+          <span> Créé le:</span>
+          <span>
+            <strong>{{ rowData.createdAt | date : "dd/MM/yyyy" }}</strong></span
+          >
+        </div>
+      </div>
     </div>
-    <div class="row">
+  </nb-card-header>
+
+  <nb-card-body>
+    <div class="Titre">
+      Titre de ticket: <strong>{{ rowData.title }}</strong>
+    </div>
+
+    <div class="row space-between-elements">
       <div class="col-lg-4">
-        Titre de ticket: <strong> {{ rowData.title }} </strong>
+        Temps diagnostique:
+        <strong>{{ rowData.diagnosticTimeByTech }}</strong>
+      </div>
+      <div class="col-lg-4">
+        Téchnicien: <strong>{{ rowData.assignedTo }}</strong>
+      </div>
+    </div>
+    <div class="row space-between-elements">
+      <div class="col-lg-12">
+        Remarque manager: <strong>{{ rowData.remarqueManager }}</strong>
       </div>
       <div class="col-lg-12">
-        Remarque manager : <strong> {{ rowData.remarqueManager }} </strong>
-      </div>
-      <div class="col-lg-12">
-        Remarque technicien: <strong> {{ rowData.remarqueTech }} </strong>
+        Remarque technicien: <strong>{{ rowData.remarqueTech }}</strong>
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-4">
-        Réparable: <strong> {{ rowData.reparable }} </strong>
-      </div>
-      <div class="col-lg-4" *ngFor="let c of rowData.composants">
-        Liste des composant:
-        <nb-card>
-          Nom de composant: <strong>{{ c.nameComposant }}</strong> <br />
-          Quantité: <strong>{{ c.quantity }}</strong> <br />
-          Status: <strong>{{ c.statusComposant }}</strong> <br />
-          Prix de vente: <strong>{{ c.sellPrice }}</strong> <br />
-          Prix d'achat: <strong>{{ c.purchasePrice }}</strong> <br />
-          Date d'arrivage: <strong>{{ c.comingDate }}</strong> <br />
+
+    <div class="row scroll-container">
+      <div class="col-lg-6" *ngFor="let c of rowData.composants">
+        <nb-card status="success">
+          <nb-card-header
+            ><strong>{{ c.nameComposant }}</strong></nb-card-header
+          >
+          <nb-card-body>
+            Status: <strong>{{ c.statusComposant }}</strong> <br />
+            Prix d'achat:
+            <strong
+              >{{ c.purchasePrice | currency : "TND" : "symbol" : "1.2-2" }}
+            </strong>
+            <br />
+            Prix de vente:
+            <strong
+              >{{ c.sellPrice | currency : "TND" : "symbol" : "1.2-2" }}
+            </strong>
+            <br />
+            Date d'arrivage: <strong>{{ c.comingDate }}</strong> <br />
+          </nb-card-body>
+          <nb-card-footer>
+            Quantité: <strong>{{ c.quantity }}</strong>
+          </nb-card-footer>
+          <nb-card-footer *ngIf="c.quantity !== 1">
+            Prix total :
+            <strong
+              >{{
+                c.quantity * c.sellPrice | currency : "TND" : "symbol" : "1.2-2"
+              }}
+            </strong>
+          </nb-card-footer>
         </nb-card>
       </div>
     </div>
-    <form class="row" [formGroup]="AdminTechForm" (ngSubmit)="submitTicket()">
-      <div class="col-lg-12">
-        <label class="label">Prix final</label>
-        <input nbInput formControlName="finalPrice" />
-      </div>
-      <div class="col-lg-6">
-        <button nbButton status="success" type="submit">Terminer</button>
-      </div>
-    </form>
   </nb-card-body>
+  <nb-card-footer>
+    <form [formGroup]="AdminTechForm" (ngSubmit)="submitTicket()">
+      <div class="col-lg-12 final-price">
+        <h6>Prix total des composants:</h6>
+        <p>
+          {{
+            calculateTotalPrixTotale() | currency : "TND" : "symbol" : "1.2-2"
+          }}
+        </p>
+      </div>
+
+      <div class="col-lg-12">
+        <input
+          nbInput
+          formControlName="finalPrice"
+          placeholder="Affecter prix final"
+        />
+        <button nbButton status="success" type="submit">Confirmer</button>
+      </div>
+    </form></nb-card-footer
+  >
 </nb-card>

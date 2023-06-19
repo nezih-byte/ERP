@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Apollo } from "apollo-angular";
 import { TableClientService } from "../table-client.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-add-client",
@@ -51,7 +52,9 @@ export class AddClientComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private clientService: TableClientService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: NbToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +72,11 @@ export class AddClientComponent implements OnInit {
         ),
       })
       .subscribe(({ data }) => {
-        console.log(data);
+        if (data) {
+          this.addUser.reset();
+          this.toastr.success("", "Vous avez ajouter nouveau client");
+          this.router.navigate(["pages/tableClient/table-user"]);
+        }
       });
   }
 }

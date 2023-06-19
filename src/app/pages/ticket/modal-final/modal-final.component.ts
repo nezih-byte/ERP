@@ -25,6 +25,9 @@ export class ModalFinalComponent implements OnInit {
   discount: number;
   pdfStr: string | ArrayBuffer;
   url: string | ArrayBuffer;
+  devis: string | ArrayBuffer;
+  bl: string | ArrayBuffer;
+  facturePdf: string | ArrayBuffer;
 
   constructor(
     private apollo: Apollo,
@@ -57,6 +60,7 @@ export class ModalFinalComponent implements OnInit {
   }
 
   onSelectFile(pdf: any) {
+    console.log(pdf, "bc");
     const file = pdf.target.files && pdf.target.files[0];
     console.log(file, "file");
     if (file) {
@@ -73,9 +77,63 @@ export class ModalFinalComponent implements OnInit {
     console.log(this.pdfStr, "pdf str");
   }
 
+  onSelectFileDevise(pdf: any) {
+    const file = pdf.target.files && pdf.target.files[0];
+    console.log(file, "file");
+    if (file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (event) => {
+        console.log(event, "event devis");
+        this.devis = reader.result;
+        this.url = (<FileReader>event.target).result;
+      };
+    }
+
+    console.log(this.devis, "pdf str");
+  }
+  onSelectFileBl(pdf: any) {
+    const file = pdf.target.files && pdf.target.files[0];
+    console.log(file, "file");
+    if (file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (event) => {
+        console.log(event, "event bl");
+        this.bl = reader.result;
+        this.url = (<FileReader>event.target).result;
+      };
+    }
+
+    console.log(this.bl, "pdf str");
+  }
+
+  onSelectFileFacture(pdf: any) {
+    console.log(pdf, "facture");
+    const file = pdf.target.files && pdf.target.files[0];
+    console.log(file, "file");
+    if (file) {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (event) => {
+        console.log(event, "event facture");
+        this.facturePdf = reader.result;
+        this.url = (<FileReader>event.target).result;
+      };
+    }
+
+    console.log(this.facturePdf, "pdf str");
+  }
+
   submitManager() {
     console.log(this.pdfStr, "pdf str");
-    console.log(this.managerForm.value, "manager form");
+    console.log(this.facturePdf, "facture str");
+    console.log(this.devis, "devise str");
+    console.log(this.bl, "bl str");
+
     this.apollo
       .mutate<any>({
         mutation: this.ticketService.updateTicketManager(
@@ -86,22 +144,24 @@ export class ModalFinalComponent implements OnInit {
           ).finalPrice,
           this.managerForm.value.statusFinal,
           this.pdfStr,
-          this.managerForm.value.bl,
-          this.managerForm.value.facture,
-          this.managerForm.value.devis
+          this.bl,
+          this.facturePdf,
+          this.devis
         ),
       })
       .subscribe(({ data }) => {
-        this.toastr.success(
-          `la réduction est de ${
-            this.caculateDiscount(
-              this.rowData.finalPrice,
-              this.managerForm.value.remise
-            ).discount
-          }`,
-          "Réussite de l'affectation",
-          { duration: 0 }
-        );
+        if (data) {
+          this.toastr.success(
+            `la réduction est de ${
+              this.caculateDiscount(
+                this.rowData.finalPrice,
+                this.managerForm.value.remise
+              ).discount
+            }`,
+            "Réussite de l'affectation",
+            { duration: 0 }
+          );
+        }
       });
     this.refDialog.close(true);
   }

@@ -1,0 +1,75 @@
+<nb-card>
+  <nb-card-header>Titre: {{ allData.designiation }}</nb-card-header>
+  <nb-card-body>
+    <div>Status:{{ allData.status }}</div>
+    <div>Emplacement:{{ allData.emplacement }}</div>
+    <div>Date de creation:{{ allData.createdAt }}</div>
+
+    <nb-card>
+      <nb-card-header>Les Remarques</nb-card-header>
+      <nb-card-body>
+        <div>Remarque Admnistration: {{ allData.bc }}</div>
+        <div>Remarque Tech: {{ allData.remarqueTech }}</div>
+      </nb-card-body>
+      <nb-card-footer> Reperarer par {{ allData.assignedTo }} </nb-card-footer>
+    </nb-card>
+
+    <nb-card>
+      <nb-card-header>Documents</nb-card-header>
+      <nb-card-body>
+        <div>
+          <p>
+            <a [href]="'http://192.168.43.174:3000/' + allData.bc"
+              >Bon de commande</a
+            >
+          </p>
+        </div>
+        <div>
+          <p>
+            <a [href]="'http://192.168.43.174:3000/' + allData.bl"
+              >Bon de livraison</a
+            >
+          </p>
+        </div>
+        <div>
+          <p>
+            <a [href]="'http://192.168.43.174:3000/' + allData.facture"
+              >Facture</a
+            >
+          </p>
+        </div>
+        <div>
+          <p>
+            <a [href]="'http://192.168.43.174:3000/' + allData.Devis">Devis</a>
+          </p>
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card>
+      <nb-card-header>Temps consomé</nb-card-header>
+      <nb-card-body>
+        <div>Temps de Diagnostique {{ allData.diagnosticTimeByTech }}</div>
+        <div>Temps de Reperation {{ allData.diagnosticTimeByTech }}</div>
+      </nb-card-body>
+      <nb-card-footer>
+        Temps Totale:
+        {{ allData.diagnosticTimeByTech + allData.diagnosticTimeByTech }}
+      </nb-card-footer>
+    </nb-card>
+
+    <div *ngFor="let c of allData.composants">
+      <nb-card>
+        <nb-card-header>{{ c.nameComposant }}</nb-card-header>
+        <nb-card-body>
+          <div>
+            Prix de vente:
+            {{ c.sellPrice | currency : "TND" : "symbol" : "1.2-2" }}
+          </div>
+          <div>Date d'arrivage: {{ c.comingDate }}</div>
+        </nb-card-body>
+        <nb-card-footer> Quantité: {{ c.quantity }} </nb-card-footer>
+      </nb-card>
+    </div>
+  </nb-card-body>
+</nb-card>

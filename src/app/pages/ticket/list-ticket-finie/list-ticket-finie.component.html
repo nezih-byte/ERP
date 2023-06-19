@@ -4,6 +4,7 @@
     <ng2-smart-table
       [settings]="settings"
       [source]="listOfTicket"
+      (custom)="seeData($event)"
     ></ng2-smart-table>
   </nb-card-body>
 </nb-card>

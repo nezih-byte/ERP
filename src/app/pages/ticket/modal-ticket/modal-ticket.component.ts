@@ -165,15 +165,20 @@ export class ModalTicketComponent implements OnInit {
 
     console.log(dataToUpdate, "data to update");
 
-    this.apollo
-      .mutate<any>({
-        mutation: this.ticketService.updateTicketByTech(dataToUpdate),
-      })
-      .subscribe(({ data }) => {
-        console.log(data);
-        this.isModalOpened = data;
-        this.ticketService.sendToMagasin(dataToUpdate);
-      });
+    if (
+      this.updateTicket.value.reparable === "oui" ||
+      this.updateTicket.value.pdr === "oui"
+    ) {
+      this.apollo
+        .mutate<any>({
+          mutation: this.ticketService.updateTicketByTech(dataToUpdate),
+        })
+        .subscribe(({ data }) => {
+          console.log(data);
+          this.isModalOpened = data;
+          this.ticketService.sendToMagasin(dataToUpdate);
+        });
+    }
 
     if (
       this.updateTicket.value.reparable === "non" ||
@@ -184,7 +189,7 @@ export class ModalTicketComponent implements OnInit {
           mutation: this.ticketService.toAdminTech(dataToUpdate._id),
         })
         .subscribe(({ data }) => {
-          console.log(data, "update");
+          console.log(data, "update toMagasin");
         });
     }
 

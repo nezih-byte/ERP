@@ -13,6 +13,7 @@ import { ROLE } from "../../../roles";
 import { BtnAdminsComponent } from "../btn-admins/btn-admins.component";
 import { BtnFinalComponent } from "../btn-final/btn-final.component";
 import { ToggleIgnoreComponent } from "../toggle-ignore/toggle-ignore.component";
+import { AllInfoComponent } from "../all-info/all-info.component";
 
 @Component({
   selector: "ngx-ticket",
@@ -27,8 +28,8 @@ export class TicketComponentTraiter implements OnInit {
       delete: false,
       custom: [
         {
-          name: "passValue",
-          title: `<i class="nb-compose" title="Affecte des TPEs"></i>`,
+          name: "seeData",
+          title: `<i class="nb-compose" title="Voir toutes les informations"></i>`,
         },
       ],
     },
@@ -135,7 +136,8 @@ export class TicketComponentTraiter implements OnInit {
   constructor(
     private apollo: Apollo,
     private ticketService: TicketService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private nbDialog: NbDialogService
   ) {}
 
   ngOnInit(): void {
@@ -151,5 +153,10 @@ export class TicketComponentTraiter implements OnInit {
         console.log(data, "tickets");
         this.listOfTicket = new LocalDataSource(data.getFinishedTicket);
       });
+  }
+
+  seeData(seeData) {
+    let modal = this.nbDialog.open(AllInfoComponent);
+    modal.componentRef.instance.allData = seeData.data;
   }
 }

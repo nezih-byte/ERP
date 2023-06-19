@@ -6,6 +6,7 @@ import { NbToastrService } from "@nebular/theme";
 import { ROLE } from "../../../roles";
 import { URL } from "../../../URLs";
 import { id } from "@swimlane/ngx-charts";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -36,31 +37,20 @@ export class TicketService {
     this.socket.emit("send-data-magasin", ticket);
   }
 
-  getNotification(currentUser: string) {
-    let notifcation: any;
-    this.socket.on("ticket", (ticket: Ticket) => {
-      if (ticket.role === currentUser) {
-        console.log("ticket recieved", ticket);
-        this.toastr.success(`${ticket._id} à faire`, "Nouveau Ticket", {
-          duration: 0,
-        });
-        notifcation = ticket;
-      }
+  getNotification(): Observable<any> {
+    return new Observable((observer) => {
+      this.socket.on("ticket", (ticket: Ticket) => {
+        observer.next(ticket);
+      });
     });
-    return notifcation;
   }
 
-  getTicketForMagasin(currentRole) {
-    if (currentRole === ROLE.MAGASIN) {
+  getTicketForMagasin(): Observable<any> {
+    return new Observable((observer) => {
       this.socket.on("magasin", (ticket: Ticket) => {
-        console.log(ticket, "ticket magasin getting", currentRole, "role");
-        if (ticket.role === currentRole) {
-          this.toastr.success(`${ticket._id} à faire`, "Nouveau Ticket", {
-            duration: 0,
-          });
-        }
+        observer.next(ticket);
       });
-    }
+    });
   }
 
   getAllTicket() {
@@ -318,9 +308,9 @@ export class TicketService {
     remise: string,
     statusFinal: boolean,
     bc: any,
-    bl: string,
-    facture: string,
-    devis: string
+    bl: any,
+    facture: any,
+    devis: any
   ) {
     return gql`
       mutation {
@@ -332,7 +322,7 @@ export class TicketService {
             bc:"${bc}"
             bl:"${bl}"
             facture:"${facture}"
-            devis:"${devis}"
+            Devis:"${devis}"
           }
         )
       }

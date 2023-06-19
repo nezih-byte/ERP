@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Apollo } from "apollo-angular";
 import { TableClientService } from "../table-client.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { NbToastrService } from "@nebular/theme";
 
 @Component({
   selector: "ngx-add-company",
@@ -63,7 +64,9 @@ export class AddCompanyComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private clientService: TableClientService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: NbToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -81,7 +84,11 @@ export class AddCompanyComponent implements OnInit {
         ),
       })
       .subscribe(({ data }) => {
-        console.log(data);
+        if (data) {
+          this.addCompany.reset();
+          this.toastr.success("", "Vous avez ajouter nouvelle société");
+          this.router.navigate(["pages/tableClient/table-company"]);
+        }
       });
   }
 }

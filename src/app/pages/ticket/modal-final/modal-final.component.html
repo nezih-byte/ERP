@@ -39,9 +39,10 @@
             nbInput
             placeholder=" Devis"
             formControlName="devis"
+            type="file"
+            (change)="onSelectFileDevise($event)"
           />
           <input
-            [src]="url"
             fullWidth
             nbInput
             placeholder=" Bon de commande"
@@ -54,14 +55,19 @@
             nbInput
             placeholder=" Bon de livraison"
             formControlName="bl"
+            type="file"
+            (change)="onSelectFileBl($event)"
           />
           <input
             fullWidth
             nbInput
             placeholder=" Facture"
             formControlName="facture"
+            type="file"
+            (change)="onSelectFileFacture($event)"
           />
           <button nbButton status="info" type="submit">Terminer</button>
+          <button nbButton status="info" type="submit">open</button>
         </div>
       </div>
     </form>

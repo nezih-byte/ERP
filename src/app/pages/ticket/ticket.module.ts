@@ -7,8 +7,10 @@ import {
   NbButtonModule,
   NbCardModule,
   NbDatepickerModule,
+  NbIconModule,
   NbInfiniteListDirective,
   NbInputModule,
+  NbLayoutScrollService,
   NbListModule,
   NbRadioModule,
   NbSelectModule,
@@ -35,6 +37,7 @@ import { BtnFinalComponent } from "./btn-final/btn-final.component";
 import { ModalFinalComponent } from "./modal-final/modal-final.component";
 import { ToggleActivateComponent } from "./toggle-activate/toggle-activate.component";
 import { ToggleIgnoreComponent } from "./toggle-ignore/toggle-ignore.component";
+import { AllInfoComponent } from "./all-info/all-info.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +59,7 @@ import { ToggleIgnoreComponent } from "./toggle-ignore/toggle-ignore.component";
     ModalFinalComponent,
     ToggleActivateComponent,
     ToggleIgnoreComponent,
+    AllInfoComponent,
   ],
   imports: [
     NbSelectModule,
@@ -73,6 +77,7 @@ import { ToggleIgnoreComponent } from "./toggle-ignore/toggle-ignore.component";
     NbListModule,
     NbToggleModule,
     NbDatepickerModule,
+    NbIconModule,
   ],
 })
 export class TicketModule {}
