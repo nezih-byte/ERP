@@ -1,75 +1,111 @@
-<nb-card>
-  <nb-card-header>Titre: {{ allData.designiation }}</nb-card-header>
-  <nb-card-body>
-    <div>Status:{{ allData.status }}</div>
-    <div>Emplacement:{{ allData.emplacement }}</div>
-    <div>Date de creation:{{ allData.createdAt }}</div>
+<div class="modal-container">
+  <nb-card class="custom-card">
+    <nb-card-header>Titre: {{ allData.designiation }}</nb-card-header>
 
-    <nb-card>
-      <nb-card-header>Les Remarques</nb-card-header>
-      <nb-card-body>
-        <div>Remarque Admnistration: {{ allData.bc }}</div>
-        <div>Remarque Tech: {{ allData.remarqueTech }}</div>
-      </nb-card-body>
-      <nb-card-footer> Reperarer par {{ allData.assignedTo }} </nb-card-footer>
-    </nb-card>
-
-    <nb-card>
-      <nb-card-header>Documents</nb-card-header>
-      <nb-card-body>
-        <div>
-          <p>
-            <a [href]="'http://192.168.43.174:3000/' + allData.bc"
-              >Bon de commande</a
-            >
-          </p>
-        </div>
-        <div>
-          <p>
-            <a [href]="'http://192.168.43.174:3000/' + allData.bl"
-              >Bon de livraison</a
-            >
-          </p>
-        </div>
-        <div>
-          <p>
-            <a [href]="'http://192.168.43.174:3000/' + allData.facture"
-              >Facture</a
-            >
-          </p>
-        </div>
-        <div>
-          <p>
-            <a [href]="'http://192.168.43.174:3000/' + allData.Devis">Devis</a>
-          </p>
-        </div>
-      </nb-card-body>
-    </nb-card>
-
-    <nb-card>
-      <nb-card-header>Temps consomé</nb-card-header>
-      <nb-card-body>
-        <div>Temps de Diagnostique {{ allData.diagnosticTimeByTech }}</div>
-        <div>Temps de Reperation {{ allData.diagnosticTimeByTech }}</div>
-      </nb-card-body>
-      <nb-card-footer>
-        Temps Totale:
-        {{ allData.diagnosticTimeByTech + allData.diagnosticTimeByTech }}
-      </nb-card-footer>
-    </nb-card>
-
-    <div *ngFor="let c of allData.composants">
-      <nb-card>
-        <nb-card-header>{{ c.nameComposant }}</nb-card-header>
+    <nb-card-body>  
+      <nb-card status="success">
+        <nb-card-header>Les Remarques</nb-card-header>
+        <nb-card-body>
+          <p>Remarque Admnistration: {{ allData.remarqueManager }}</p>
+          <p>Remarque Tech: {{ allData.remarqueTech }}</p>
+        </nb-card-body>
+        <nb-card-footer class="footer-Style"> 
+         <p>Tech: {{ allData.assignedTo }}</p> 
+         <p>Admnistrateur: {{allData.createdBy}}</p>  
+        </nb-card-footer>
+      </nb-card>
+  
+      <nb-card status="success">
+        <nb-card-header>Documents</nb-card-header>
         <nb-card-body>
           <div>
-            Prix de vente:
-            {{ c.sellPrice | currency : "TND" : "symbol" : "1.2-2" }}
+            <p>
+              <a [href]="'http://localhost:3000/' + allData.bc"
+                >Bon de commande</a
+              >
+            </p>
           </div>
-          <div>Date d'arrivage: {{ c.comingDate }}</div>
+          <div>
+            <p>
+              <a [href]="'http://localhost:3000/' + allData.bl"
+                >Bon de livraison</a
+              >
+            </p>
+          </div>
+          <div>
+            <p>
+              <a [href]="'http://localhost:3000/' + allData.facture"
+                >Facture</a
+              >
+            </p>
+          </div>
+          <div>
+            <p>
+              <a [href]="'http://localhost:3000/' + allData.Devis">Devis</a>
+            </p>
+          </div>
         </nb-card-body>
-        <nb-card-footer> Quantité: {{ c.quantity }} </nb-card-footer>
       </nb-card>
-    </div>
-  </nb-card-body>
-</nb-card>
+  
+      <nb-card status="success">
+        <nb-card-header >Temps consomé</nb-card-header>
+        <nb-card-body>
+          <div>Temps de Diagnostique {{ allData.diagnosticTimeByTech }}</div>
+          <div>Temps de Reperation {{ allData.reparationTimeByTech }}</div>
+        </nb-card-body>
+        <nb-card-footer>
+          Temps Totale:
+          {{calculateTotalTemps()}}
+        </nb-card-footer>
+      </nb-card>
+  
+      <div >
+        <nb-card status="success">
+          <nb-card-header>Liste des composants</nb-card-header>
+          <nb-card-body *ngFor="let c of allData.composants">
+            <p>
+              Nom composant:{{c.nameComposant}}
+            </p>
+            <p>
+              Prix:
+              {{ c.sellPrice | currency : "TND" : "symbol" : "1.2-2" }}
+            </p>
+            <p>
+              Quantité: {{ c.quantity }}
+            </p>
+            <p>
+              Prix totale composant: {{c.sellPrice*c.quantity}}
+            </p>
+            <p>Date d'arrivage: {{ c.comingDate }}</p>
+
+          </nb-card-body>
+          <nb-card-footer> 
+          <p>
+            Prix des composants: {{calculateTotalPrixTotale() | currency : "TND" : "symbol" : "1.2-2"}}
+          </p>
+<p>
+  Prix Total {{allData.finalPrice| currency : "TND" : "symbol" : "1.2-2"}} 
+</p>             
+</nb-card-footer>
+        </nb-card>
+      </div>
+
+
+     
+
+
+
+
+    </nb-card-body>
+    <nb-card-footer class="footer-Style">      
+      <p>Status:{{ allData.finalStatusTicket }}</p>
+      <p>Emplacement:{{ allData.emplacement }}</p>
+      <p>Date de creation:{{ allData.createdAt | date:'dd/MM/yyyy' }}</p>
+    </nb-card-footer>
+  </nb-card>
+  
+   
+
+
+</div>
+

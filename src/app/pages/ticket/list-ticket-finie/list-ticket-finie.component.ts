@@ -158,5 +158,7 @@ export class TicketComponentTraiter implements OnInit {
   seeData(seeData) {
     let modal = this.nbDialog.open(AllInfoComponent);
     modal.componentRef.instance.allData = seeData.data;
+    console.log("this is where my data come",seeData)
   }
+  
 }

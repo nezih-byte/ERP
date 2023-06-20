@@ -63,7 +63,7 @@ export class TicketService {
           emplacement
           numero
           remarqueTech
-          remarqueManager
+          getTicketFinished
           reparable
           pdr
           techNameSug
@@ -349,6 +349,11 @@ export class TicketService {
           updatedAt
           status
           finalStatusTicket
+          reparationTimeByTech
+          remarqueManager
+          emplacement
+          assignedTo
+          finalPrice
           diagnosticTimeByTech
           priority
           Devis
