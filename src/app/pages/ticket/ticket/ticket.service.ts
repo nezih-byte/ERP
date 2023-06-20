@@ -63,7 +63,6 @@ export class TicketService {
           emplacement
           numero
           remarqueTech
-          getTicketFinished
           reparable
           pdr
           techNameSug

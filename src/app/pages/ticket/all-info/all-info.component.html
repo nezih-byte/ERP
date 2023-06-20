@@ -55,7 +55,7 @@
         </nb-card-body>
         <nb-card-footer>
           Temps Totale:
-          {{calculateTotalTemps()}}
+          {{calculateTotalTemps()}} 
         </nb-card-footer>
       </nb-card>
   
@@ -74,18 +74,21 @@
               Quantité: {{ c.quantity }}
             </p>
             <p>
-              Prix totale composant: {{c.sellPrice*c.quantity}}
+              Prix totale composant: {{(c.sellPrice*c.quantity)| currency : "TND" : "symbol" : "1.2-2"}}
             </p>
             <p>Date d'arrivage: {{ c.comingDate }}</p>
 
           </nb-card-body>
           <nb-card-footer> 
           <p>
-            Prix des composants: {{calculateTotalPrixTotale() | currency : "TND" : "symbol" : "1.2-2"}}
+            Prix des composants: {{totalPrixTotale | currency : "TND" : "symbol" : "1.2-2"}}
           </p>
 <p>
   Prix Total {{allData.finalPrice| currency : "TND" : "symbol" : "1.2-2"}} 
 </p>             
+<strong>
+  Gain Argent {{(allData.finalPrice-totalPrixTotale).toFixed(2)| currency : "TND" : "symbol" : "1.2-2"}}
+</strong>
 </nb-card-footer>
         </nb-card>
       </div>
@@ -103,9 +106,5 @@
       <p>Date de creation:{{ allData.createdAt | date:'dd/MM/yyyy' }}</p>
     </nb-card-footer>
   </nb-card>
-  
-   
-
-
 </div>
 

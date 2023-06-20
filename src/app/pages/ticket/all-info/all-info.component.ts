@@ -9,36 +9,56 @@ import * as moment from "moment";
 })
 export class AllInfoComponent implements OnInit {
   allData;
+  totalPrixTotale: number;
+  tempsTotal:string;
   constructor() {}
 
   ngOnInit(): void {
     console.log("all data", this.allData);
+    this.calculateTotalPrixTotale()
   }
 
 
 
-  calculateTotalPrixTotale(): number {
+  calculateTotalPrixTotale() {
     let totalPrixTotale = 0;
     for (let c of this.allData.composants) {
       totalPrixTotale += c.quantity * c.sellPrice;
     }
-    return totalPrixTotale;
+     this.totalPrixTotale = totalPrixTotale;
   }
 
 calculateTotalTemps(){
-let tempsTotal 
-console.log(typeof(this.allData.reparationTimeByTech),"this.allData.reparationTimeByTech")
+let totalHours
+let totalMinutes
+let totalseconds 
 
-let diagTime=moment(this.allData.diagnosticTimeByTech).format("HH:mm:ss")
-let repairTime=moment(this.allData.reparationTimeByTech).format("HH:mm:ss")
-let x=new Date(diagTime)
-console.log("value of x ",x)
-console.log(repairTime,"repairTime")
-console.log(typeof(diagTime),"diagTime")
+let diagTime=this.allData.diagnosticTimeByTech
+let repairTime=this.allData.reparationTimeByTech
 
-tempsTotal=repairTime+diagTime
+let diagTimeNumber = diagTime;
+let repairTimeNumber = repairTime;
 
-return tempsTotal
+let timePartsrepairTime = repairTimeNumber.split(":");
+let hoursrepairTime = parseInt(timePartsrepairTime[0]);
+let minutesrepairTime = parseInt(timePartsrepairTime[1]);
+let secondsrepairTime = parseInt(timePartsrepairTime[2]);
+
+let timePartsdiagTime = diagTimeNumber.split(":");
+let hoursdiagTime = parseInt(timePartsdiagTime[0]);
+let minutesdiagTime = parseInt(timePartsdiagTime[1]);
+let secondsdiagTime = parseInt(timePartsdiagTime[2]);
+
+
+totalHours=hoursrepairTime+hoursdiagTime
+totalMinutes=minutesrepairTime+minutesdiagTime
+totalseconds=secondsrepairTime+secondsdiagTime
+
+
+
+return this.tempsTotal=totalHours + ":Heures" + " "+ totalMinutes + ":Minutes" +" "+ "et"+" "+ totalseconds + ":Secondes"
 }
+
+
 
 }
